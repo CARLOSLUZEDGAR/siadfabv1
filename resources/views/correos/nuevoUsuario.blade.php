@@ -30,7 +30,7 @@ width: 100% !important;
   <tr>
   <td class="header" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; padding: 25px 0; text-align: center;">
   <a href="https://fab.bo/" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #ffffff; font-size: 19px; font-weight: bold; text-decoration: none; display: inline-block;">
-    SISTEMA DE PERSONAL COMANDO GENERAL DE LA FAB - SIPEFAB
+    SISTEMA DE ASIGNACIÓN DE DESTINOS DE LA FUERZA AEREA - SIADFAB
   </a>
   </td>
   </tr>
@@ -43,7 +43,7 @@ width: 100% !important;
   <td class="content-cell" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; max-width: 100vw; padding: 32px;">
 
   <h1 style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #3d4852; font-size: 18px; font-weight: bold; margin-top: 0; text-align: left;">
-  Credenciales para acceder a SIPEFAB</h1>
+  Credenciales para acceder a SIADFAB</h1>
   <span style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; font-size: 16px; line-height: 3em; margin-top: 5px; text-align: left;">
   Sr(a).  {{$info->grado}} {{$info->complemento}} {{$info->nombre}} {{$info->paterno}} {{$info->materno}}</span> <br>
   <span style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; font-size: 16px; line-height: 1.5em; margin-top: 5px; text-align: left;">

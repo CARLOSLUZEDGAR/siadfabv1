@@ -106,7 +106,6 @@ export default {
               id: id
             })
             .then(function (response) {
-                
                 me.permisos = response.data
             })
       },

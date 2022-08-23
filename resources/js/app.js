@@ -59,7 +59,7 @@ Vue.use(SimpleVueValidation);
  import Auth from './Auth'
 
  Vue.prototype.$auth = new Auth(window.user);
-//  console.log( window.user);
+ console.log( window.user);
 
 /**
  * Vue Router

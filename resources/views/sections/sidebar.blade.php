@@ -21,72 +21,93 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        
-              {{-- PERMISO SIDEBAR 1 --}}
-              @can('destinos_cargos', Model::class)
-              <li class="nav-header" style="padding-left: 1px;">DESTINOS</li>
-                {{-- PERMISO SIDEBAR 2 --}}
-                @can('destinos', Model::class)
-                <li class="nav-item">{{-- DESTINOS --}}
+              @can('payament', Model::class)
+                  <li>prueba</li>
+              @endcan
+              @can('personal-destinos', Model::class)
+                <li class="nav-header" style="padding-left: 1px;">DESTINOS</li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fab fa-avianex"></i>
+                      <p>
+                        DESTINOS
+                        <i class="fa fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                      @can('view-destper', Model::class)
+                      <li class="nav-item">
+                        <router-link class="nav-link" to='/listarPersonal'>
+                        &nbsp;&nbsp;<i class="fas fa-luggage-cart"></i>&nbsp;&nbsp;&nbsp;
+                          <p>Personal Destinos</p>
+                        </router-link>
+                      </li>
+                      @endcan
+
+                      @can('view-destn1', Model::class)
+                      <li class="nav-item">
+                        <router-link class="nav-link" to='/nivel1destino'>
+                        &nbsp;&nbsp;<i class="fas fa-globe-americas"></i>&nbsp;&nbsp;&nbsp;
+                          <p>Destinos nivel 1</p>
+                        </router-link>
+                      </li>
+                      @endcan
+
+                      @can('view-destn2', Model::class)
+                      <li class="nav-item">
+                        <router-link class="nav-link" to='/nivel2destino'>
+                        &nbsp;&nbsp;<i class="fas fa-globe-europe"></i>&nbsp;&nbsp;&nbsp;
+                          <p>Destinos nivel 2</p>
+                        </router-link>
+                      </li>
+                      @endcan
+
+                      @can('view-destn3', Model::class)
+                      <li class="nav-item">
+                        <router-link class="nav-link" to='/nivel3destino'>
+                        &nbsp;&nbsp;<i class="fas fa-globe-asia"></i>&nbsp;&nbsp;&nbsp;
+                          <p>Destinos nivel 3</p>
+                        </router-link>
+                      </li>
+                      @endcan
+
+                      @can('view-destn4', Model::class)
+                      <li class="nav-item">
+                        <router-link class="nav-link" to='/nivel4destino'>
+                        &nbsp;&nbsp;<i class="fas fa-globe-africa"></i>&nbsp;&nbsp;&nbsp;
+                          <p>Destinos nivel 4</p>
+                        </router-link>
+                      </li>
+                      @endcan
+
+                    </ul>
+                  </li> 
+              @endcan
+
+              @can('configuracion', Model::class)
+                <li class="nav-header" style="padding-left: 1px;">CONFIGURACIÓN</li>
+                <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="nav-icon fab fa-avianex"></i>
                     <p>
-                      DESTINOS
+                      TABLAS
                       <i class="fa fa-angle-left right"></i>
                     </p>
                   </a>
                   <ul class="nav nav-treeview">
-
                     @can('view-destper', Model::class)
                     <li class="nav-item">
                       <router-link class="nav-link" to='/listarPersonal2'>
                       &nbsp;&nbsp;<i class="fas fa-luggage-cart"></i>&nbsp;&nbsp;&nbsp;
-                        <p>Personal Destinos</p>
+                        <p>Tablas</p>
                       </router-link>
                     </li>
                     @endcan
-
-                    @can('view-destn1', Model::class)
-                    <li class="nav-item">
-                      <router-link class="nav-link" to='/nivel1destino'>
-                      &nbsp;&nbsp;<i class="fas fa-globe-americas"></i>&nbsp;&nbsp;&nbsp;
-                        <p>Destinos nivel 1</p>
-                      </router-link>
-                    </li>
-                    @endcan
-
-                    @can('view-destn2', Model::class)
-                      <li class="nav-item">
-                      <router-link class="nav-link" to='/nivel2destino'>
-                      &nbsp;&nbsp;<i class="fas fa-globe-europe"></i>&nbsp;&nbsp;&nbsp;
-                        <p>Destinos nivel 2</p>
-                      </router-link>
-                    </li>
-                    @endcan
-
-                    @can('view-destn3', Model::class)
-                    <li class="nav-item">
-                      <router-link class="nav-link" to='/nivel3destino'>
-                      &nbsp;&nbsp;<i class="fas fa-globe-asia"></i>&nbsp;&nbsp;&nbsp;
-                        <p>Destinos nivel 3</p>
-                      </router-link>
-                    </li>
-                    @endcan
-
-                    @can('view-destn4', Model::class)
-                    <li class="nav-item">
-                      <router-link class="nav-link" to='/nivel4destino'>
-                      &nbsp;&nbsp;<i class="fas fa-globe-africa"></i>&nbsp;&nbsp;&nbsp;
-                        <p>Destinos nivel 4</p>
-                      </router-link>
-                    </li>
-                    @endcan
-
                   </ul>
-                </li>  
-                @endcan               
+                </li> 
               @endcan
-
+               
               {{-- PERMISO SIDEBAR 1 --}}
               @can('destinos_cargos', Model::class)
               <li class="nav-header" style="padding-left: 1px;">AYUDAS</li>
@@ -116,8 +137,10 @@
                 @endcan               
               @endcan
 
+              
+
               {{-- PERMISO SIDEBAR 1 --}}
-                @can('view-rolper', Model::class)
+                @can('administracion', Model::class)
                 <li class="nav-header" style="padding-left: 1px;">ADMINISTRACIÓN</li>
                 <li class="nav-item">{{-- ACCESO DEL SISTEMA --}}
                     <a href="#" class="nav-link">
