@@ -73,12 +73,26 @@ export default new Router ({
         },
 
         {
-            path: '/listarPersonal',
+            path: '/listarPersonalDestinos',
             name: 'ListarPersonalDestinos',
             component: require('./components/Personal.vue').default,
             beforeEnter: (to, from, next) => {
                 let per = window.user.permissions.map(permission=>permission.name);
                 if (per.includes('view-destper')) {
+                    next();
+                } else {
+                    next(from.path);
+                }
+            }
+        },
+
+        {
+            path: '/listarTablas',
+            name: 'ListarTablas',
+            component: require('./components/ListarTablasConf.vue').default,
+            beforeEnter: (to, from, next) => {
+                let per = window.user.permissions.map(permission=>permission.name);
+                if (per.includes('view-tablas')) {
                     next();
                 } else {
                     next(from.path);

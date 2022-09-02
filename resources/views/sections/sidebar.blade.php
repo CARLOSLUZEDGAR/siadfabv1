@@ -38,7 +38,7 @@
 
                       @can('view-destper', Model::class)
                       <li class="nav-item">
-                        <router-link class="nav-link" to='/listarPersonal'>
+                        <router-link class="nav-link" to='/listarPersonalDestinos'>
                         &nbsp;&nbsp;<i class="fas fa-luggage-cart"></i>&nbsp;&nbsp;&nbsp;
                           <p>Personal Destinos</p>
                         </router-link>
@@ -96,9 +96,9 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview">
-                    @can('view-destper', Model::class)
+                    @can('view-tablas', Model::class)
                     <li class="nav-item">
-                      <router-link class="nav-link" to='/listarPersonal2'>
+                      <router-link class="nav-link" to='/listarTablas'>
                       &nbsp;&nbsp;<i class="fas fa-luggage-cart"></i>&nbsp;&nbsp;&nbsp;
                         <p>Tablas</p>
                       </router-link>

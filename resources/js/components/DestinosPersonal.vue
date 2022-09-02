@@ -218,51 +218,25 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label class="form-control-label" for="text-input">Nro. Documento</label>
-                            <input type="text" v-model="perdest_nro_doc" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_doc.$error, 'is-valid':!$v.perdest_nro_doc.$invalid }">
-                            <div class="invalid-feedback">
-                                <span v-if="!$v.perdest_nro_doc.required">Este campo es Requerido</span>
-                            </div>
+                            <input type="text" v-model="perdest_nro_doc" class="form-control" disabled>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-control-label" for="text-input">Tipo Documento</label>
-                            <select class="form-control" v-model="perdest_tipo_doc" :class="{ 'is-invalid' : $v.perdest_tipo_doc.$error, 'is-valid':!$v.perdest_tipo_doc.$invalid }">
-                                <option value="0" disabled>SELECCIONAR</option>
-                                <option value="ORDEN GENERAL DE DESTINOS">ORDEN GENERAL DE DESTINOS</option>
-                                <option value="MEMORANDUM">MEMORANDUM</option>
-                                <option value="FAX">FAX</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                <span v-if="!$v.perdest_tipo_doc.required">Este campo es Requerido</span>
-                            </div>
+                            <input type="text" v-model="perdest_tipo_doc" class="form-control" disabled>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         
                         <div class="col-md-6">
-                                <label class="form-control-label" for="text-input">Fecha de Documento</label>
-                            <input type="date" v-model="perdest_fechadestino" class="form-control" :class="{ 'is-invalid' : $v.perdest_fechadestino.$error, 'is-valid':!$v.perdest_fechadestino.$invalid }">
-                            <div class="invalid-feedback">
-                                <span v-if="!$v.perdest_fechadestino.required">Este campo es Requerido</span>
-                            </div>
-                            <!-- <label class="form-control-label" for="text-input">Fecha Documento</label>
-                            <date-picker class="dat" value-type="date" format="DD/MM/YYYY" v-model="perdest_fechadestino" :disabled-date="fechaactual" :class="{ 'is-invalid' : $v.perdest_fechadestino.$error, 'is-valid':!$v.perdest_fechadestino.$invalid }">
-                            </date-picker>
-                            <div class="invalid-feedback">
-                                <span v-if="!$v.perdest_fechadestino.required">Este campo es Requerido</span>
-                            </div> -->
+                            <label class="form-control-label" for="text-input">Fecha de Documento</label>
+                            <input type="text" v-model="perdest_fechadestino" class="form-control" disabled>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-control-label" for="text-input">Grado en el Destino</label>
-                            <select class="form-control" v-model="perdest_grado" :class="{ 'is-invalid' : $v.perdest_grado.$error, 'is-valid':!$v.perdest_grado.$invalid }">
-                                <option value="0" disabled>SELECCIONE</option>
-                                <option v-for="grados in arrayGrados" :key="grados.id" :value="grados.id"  v-text="grados.abreviatura"></option>
-                            </select>
-                            <div class="invalid-feedback">
-                                <span v-if="!$v.perdest_grado.required">Este campo es Requerido</span>
-                            </div>
+                            <input type="text" v-model="perdest_grado" class="form-control" disabled>
                         </div>
 
                     </div>
@@ -533,7 +507,10 @@
 import { required, minLength, maxLength, alpha, numeric, email, sameAs} from "vuelidate/lib/validators";
 export default {
     data() {
+        // const today = new Date();
         const today = new Date();
+        const gestion4 = today.getFullYear().toString();
+        const gestion2 = gestion4.slice(-2);
         return {
             //RECIBIMOS LA VARIABLE EN ESTE CASO (d)
             per_codigo: this.$route.params.d,
@@ -547,7 +524,9 @@ export default {
             errorDestinosActualizar : 0,
             errorMostrarMsjDestinosActualizar : [],
 
-            ano_actual : '',
+            ano_actual : gestion4,
+            ano_actual2 : gestion2,
+            gestion : '',
             per_cmi : '',
             per_cmil : '',
             //VARIABLES MODAL
@@ -614,10 +593,10 @@ export default {
 
     validations:{
         
-            perdest_nro_doc : { required },
-            perdest_tipo_doc : { required },
-            perdest_fechadestino : { required },
-            perdest_grado : { required },
+            // perdest_nro_doc : { required },
+            // perdest_tipo_doc : { required },
+            // perdest_fechadestino : { required },
+            // perdest_grado : { required },
             perdest_destn1_codigo : { required },
             perdest_destn2_codigo : { required },
             perdest_destn3_codigo : { required },
@@ -634,18 +613,19 @@ export default {
             perdest_destn4_codigoA : { required },
             perdest_cargo1A : { required },
 
-            validationGroupReg: ['perdest_nro_doc', 'perdest_tipo_doc', 'perdest_fechadestino', 'perdest_grado', 'perdest_destn1_codigo', 'perdest_destn2_codigo', 'perdest_destn3_codigo', 'perdest_destn4_codigo','valor'],
+            validationGroupReg: ['perdest_destn1_codigo', 'perdest_destn2_codigo', 'perdest_destn3_codigo', 'perdest_destn4_codigo','valor'],
             validationGroupEdit: ['perdest_nro_docA', 'perdest_tipo_docA', 'perdest_fechadestinoA', 'perdest_gradoA', 'perdest_destn1_codigoA', 'perdest_destn2_codigoA', 'perdest_destn3_codigoA', 'perdest_destn4_codigoA','perdest_cargo1A']
 
     },
 
     mounted() {
         //this.ver();
-         this.listarPersonalDestinos(this.per_codigo);
+        this.listarPersonalDestinos(this.per_codigo);
 
         this.datosPersonal(this.per_codigo);
 
         this.selectGrado();
+
     },
 
     computed:{
@@ -929,6 +909,7 @@ export default {
                 //obtiene la gestion actual
             var fecha = new Date();
             var ano = fecha.getFullYear();
+            this.gestion = ano;
             //obtiene variable.toString a varchar
             var ano1 = ano.toString()
             //para extraer
@@ -957,14 +938,14 @@ export default {
             this.$v.$reset(),
             //PONER DE CERO EL MODAL ANTES DE REGISTRAR
             this.idPersonalDestino = 0,
-            this.perdest_nro_doc = '',
-            this.perdest_tipo_doc = '',
-            this.perdest_fechadestino = '',
+            this.perdest_nro_doc = '02/'+this.ano_actual2,
+            this.perdest_tipo_doc = 'ORDEN GENERAL DE DESTINOS',
+            this.perdest_fechadestino = '31/12/'+this.ano_actual,
+            this.perdest_grado = this.arrayDatosPersonal.gra_abreviatura,
             this.perdest_destn1_codigo = '',
             this.perdest_destn2_codigo = '',
             this.perdest_destn3_codigo = '',
             this.perdest_destn4_codigo = '',
-            this.perdest_grado = '',
             this.valor = [],
             this.valor2 = [],
             this.perdest_observaciones = '',
@@ -1005,10 +986,10 @@ export default {
                         axios
                         .post("/registrarDestino", {
                         //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
-                            perdest_codigocambio : me.per_codigo,
+                            perdest_percodigo : me.per_codigo,
                             perdest_nro_doc : me.perdest_nro_doc,
                             perdest_tipo_doc : me.perdest_tipo_doc,
-                            perdest_fechadestino : me.perdest_fechadestino,
+                            perdest_fechadestino : me.gestion+'-12-31',
                             perdest_destn1_codigo : me.perdest_destn1_codigo,
                             perdest_destn2_codigo : me.perdest_destn2_codigo,
                             perdest_destn3_codigo : me.perdest_destn3_codigo,
@@ -1022,7 +1003,7 @@ export default {
                         })
                         .then(function (response) {
                             //Respuesta de la peticion
-                            
+                            console.log(response);
                             $('#NuevoDestino').modal('hide');
                             me.listarPersonalDestinos(me.per_codigo);
                         })

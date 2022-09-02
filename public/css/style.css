@@ -1,5 +1,5 @@
 .login-dark {
-    background:#475d62 url(../img/login2.jpeg);
+    /* background:#475d62 url(../img/login2.jpeg); */
     height: 100vh;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.3);
@@ -28,7 +28,7 @@ text-align:center;
 padding:5px 0 20px;
 width: 100%;
 height: 150px;
-background: url(../img/fabprueba.png);
+/* background: url(../img/fabprueba.png); */
 background-repeat: no-repeat;
 background-size: 100% 100%;
 position:relative;

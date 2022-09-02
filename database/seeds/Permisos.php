@@ -17,7 +17,7 @@ class Permisos extends Seeder
     {
         // Reset cached roles and permissions
         // app()[PermissionRegistrar::class]->forgetCachedPermissions();
-        Permission::create(['mod_cod' => 1,'name' => 'payament']);
+        // Permission::create(['mod_cod' => 1,'name' => 'payament']);
         // Permission::create(['mod_cod' => 1,'name' => 'payament box']);
         // Permission::create(['mod_cod' => 1,'name' => 'brand']);
         // Permission::create(['mod_cod' => 1,'name' => 'edit brand']);
@@ -26,6 +26,6 @@ class Permisos extends Seeder
         // Permission::create(['name' => 'create category']);
         // Permission::create(['name' => 'edit category']);
 
-        $per1->assignRole($role);
+        // $per1->assignRole($role);
     }
 }

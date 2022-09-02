@@ -179,11 +179,11 @@ class PersonalController extends Controller
             ->get();
 
         $personal = Personal::join('personal_escalafones','personal.per_codigo','=','personal_escalafones.per_codigo')
-            ->join('grados','personal_escalafones.gra_codigo','=','grados.id')
+            ->join('grados','personal_escalafones.gra_cod','=','grados.id')
             ->join('estudio_personal','personal.per_codigo','=','estudio_personal.per_codigo')
             ->join('estudio','estudio_personal.est_codigo','=','estudio.id')
            ->select('personal.id','personal.per_codigo as personal_id', 'personal.per_paterno','personal.per_nombre','personal.per_materno','personal.per_ci',
-           'personal.per_cm','personal.per_promo','personal_escalafones.gra_codigo','personal_escalafones.per_codigo','grados.gra_abreviatura','estudio.estu_abreviatura','personal.per_sexo')
+           'personal.per_cm','personal.per_promo','personal_escalafones.gra_cod','personal_escalafones.per_codigo','grados.abreviatura','estudio.estu_abreviatura','personal.per_sexo')
            ->where('personal_escalafones.escap_flag','=',1)->where('estudio_personal.estp_flag','=',1)->where('personal.per_codigo','=',$id)
            ->first();
          //return response()->json($personals);
@@ -199,11 +199,11 @@ class PersonalController extends Controller
 
         $listarEscalafon = DB::table('personal_escalafones')
            ->join('personal','personal_escalafones.per_codigo','personal.per_codigo')
-            ->join('grados','personal_escalafones.gra_codigo','grados.id')
+            ->join('grados','personal_escalafones.gra_cod','grados.id')
             ->join('escalafones','personal_escalafones.esca_codigo','escalafones.esca_codigo')
             ->join('subescalafones','personal_escalafones.subesc_codigo','subescalafones.id')
             ->select('grados.gra_abreviatura as grados','grados.id', 'escalafones.esca_nombre', 'escalafones.esca_codigo as escalafon_id', 'subescalafones.subesc_nombre','subescalafones.id',
-            'personal_escalafones.esca_codigo','personal_escalafones.subesc_codigo','personal_escalafones.gra_codigo','personal_escalafones.escap_flag',
+            'personal_escalafones.esca_codigo','personal_escalafones.subesc_codigo','personal_escalafones.gra_cod','personal_escalafones.escap_flag',
             'personal_escalafones.escap_documento','personal_escalafones.escap_fecha_doc','personal_escalafones.escap_fecha','personal_escalafones.escap_observaciones',
             'personal_escalafones.escap_cm','personal_escalafones.sys_user','personal_escalafones.nro_doc','personal_escalafones.id',
             'personal.per_codigo as personal_id')
@@ -567,10 +567,6 @@ class PersonalController extends Controller
         ];
     }
 
-
-
-
-
     public function index(Request $request)
     {
         $buscar = $request->buscar;
@@ -579,27 +575,31 @@ class PersonalController extends Controller
         if($buscar==''){
 
             $personals= Personal::join('personal_escalafones','personals.per_codigo','=','personal_escalafones.per_codigo')
-            ->join('grados','personal_escalafones.gra_codigo','=','grados.id')
-            ->join('personal_estudios','personals.per_codigo','=','personal_estudios.per_codigo')
-            ->join('estudios','personal_estudios.est_codigo','=','estudios.id')
-           ->select('personals.per_codigo as personal_id', 'personals.per_paterno','personals.per_nombre',
-           'personals.per_materno','personals.per_ci','personals.per_cm','personals.per_promo',
-           'personal_escalafones.gra_codigo','personal_escalafones.per_codigo',
-           'grados.gra_abreviatura','estudios.estu_abreviatura')
-           ->where('personal_escalafones.estado','=',1)
-           ->where('personal_estudios.estado','=',1)
-           ->orderBy('personals.per_cm', 'asc')->paginate(10);
+                                ->join('grados','personal_escalafones.gra_cod','=','grados.id')
+                                ->join('personal_estudios','personals.per_codigo','=','personal_estudios.per_codigo')
+                                ->join('estudios','personal_estudios.est_cod','=','estudios.id')
+                                ->select('personals.per_codigo as personal_id', 
+                                        'personals.per_paterno','personals.per_nombre',
+                                        'personals.per_materno','personals.per_ci',
+                                        'personals.per_cm','personals.per_promo',
+                                        'personal_escalafones.gra_cod',
+                                        'personal_escalafones.per_codigo',
+                                        'grados.abreviatura','estudios.abreviatura')
+                                ->where('personal_escalafones.estado','=',1)
+                                ->where('personal_estudios.estado','=',1)
+                                ->orderBy('personals.per_cm', 'asc')
+                                ->paginate(10);
         }
         else
         {
             $personals = Personal::join('personal_escalafones','personals.per_codigo','=','personal_escalafones.per_codigo')
-            ->join('grados','personal_escalafones.gra_codigo','=','grados.id')
+            ->join('grados','personal_escalafones.gra_cod','=','grados.id')
             ->join('personal_estudios','personals.per_codigo','=','personal_estudios.per_codigo')
-            ->join('estudios','personal_estudios.est_codigo','=','estudios.id')
+            ->join('estudios','personal_estudios.est_cod','=','estudios.id')
            ->select('personals.per_codigo as personal_id', 'personals.per_paterno','personals.per_nombre',
            'personals.per_materno','personals.per_ci','personals.per_cm','personals.per_promo',
-           'personal_escalafones.gra_codigo','personal_escalafones.per_codigo',
-           'grados.gra_abreviatura','estudios.estu_abreviatura')
+           'personal_escalafones.gra_cod','personal_escalafones.per_codigo',
+           'grados.abreviatura','estudios.abreviatura')
            ->where('personal_escalafones.estado','=',1)
            ->where('personal_estudios.estado','=',1)
            ->where($criterio, 'like', '%'.$buscar.'%')

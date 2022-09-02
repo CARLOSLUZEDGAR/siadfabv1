@@ -146,31 +146,31 @@ class PersonalDestinosController extends Controller
     }
 
     public function store(Request $request)
-    {
-         // PARA DEFINIR EL ESTADO
-         $fecha_max_update = PersonalDestinos::
-         where('per_codigo', $request->perdest_codigocambio)
-         ->where('flag',1)
-         ->max('fecha_destino');
+    {        
+        // PARA DEFINIR EL ESTADO
+        //  $fecha_max_update = PersonalDestinos::
+        //  where('per_codigo', $request->perdest_codigocambio)
+        //  ->where('flag',1)
+        //  ->max('fecha_destino');
  
-         if ($request->perdest_fechadestino >= $fecha_max_update)
-            {
-                $perdest_estado = '1';
+        //  if ($request->perdest_fechadestino >= $fecha_max_update)
+        //     {
+                $perdest_estado = 1;
  
                 $excluir = PersonalDestinos::
-                where('per_codigo', $request->perdest_codigocambio)
+                where('per_codigo', $request->perdest_percodigo)
                 ->whereNotIn('fecha_destino', [$request->perdest_fechadestino])
                 ->update(['estado' => 0]);
 
                 $excluir_cargo = PersonalCargo::
-                where('per_codigo', $request->perdest_codigocambio)
+                where('per_codigo', $request->perdest_percodigo)
                 ->whereNotIn('fechadest', [$request->perdest_fechadestino])
                 ->update(['estado' => 0]);
-            }
-         else
-             {
-                $perdest_estado = '0';
-             }
+            // }
+        //  else
+        //      {
+        //         $perdest_estado = '0';
+        //      }
          //FIN DEFINIR ESTADO
 
          //PARA PONER FUNCION ASIGNARSE COMO DEFAULT
@@ -186,100 +186,9 @@ class PersonalDestinosController extends Controller
      
      //FIN DEFAULT
 
-     //INICIO DETERMINAR GRADO
-     
-     /*$filtro = $request->filtro;
-     if ($filtro==1 || $filtro==2 || $filtro==3)
-            {
-                $fecha_grado = $request->perdest_fechadestino;
-                $promocion = $request->promocion;
-               $a = '31/12/'.$promocion;
-               $b = '30/12/'.($promocion + 5);
-               $c = '31/12/'.($promocion + 5);
-               $d = '30/12/'.($promocion + 10);
-               $e = '31/12/'.($promocion + 10);
-               $f = '30/12/'.($promocion + 15);
-               $g = '31/12/'.($promocion + 15);
-               $h = '30/12/'.($promocion + 20);
-               $i = '31/12/'.($promocion + 20);
-               $j = '30/12/'.($promocion + 25);
-               $k = '31/12/'.($promocion + 25);
-               $l = '30/12/'.($promocion + 30);
-
-                //$grado = 0;
-                
-                if ($fecha_grado >= $a && $fecha_grado <= $b){
-                    $grado = 9;
-                }
-                if ($fecha_grado >= $c && $fecha_grado <= $d){
-                    $grado = 8;
-                }
-             if ($fecha_grado >= $e && $fecha_grado <= $f){
-                    $grado = 7;
-                }
-             if ($fecha_grado >= $g && $fecha_grado <= $h){
-                    $grado = 6;
-                }
-             if ($fecha_grado >= $i && $fecha_grado <= $j){
-                    $grado = 5;
-                }
-             if ($fecha_grado >= $k && $fecha_grado <= $l){
-                    $grado = 4;
-                } 
-                else{}               
-                //return response()->json($grado);
-            }
-    if ($filtro==4 || $filtro==5 || $filtro==6)
-            {
-                $fecha_grado = $request->perdest_fechadestino;
-                $promocion = $request->promocion;
-               $a = '31/12/'.$promocion;
-               $b = '30/12/'.($promocion + 3);
-               $c = '31/12/'.($promocion + 3);
-               $d = '30/12/'.($promocion + 6);
-               $e = '31/12/'.($promocion + 6);
-               $f = '30/12/'.($promocion + 10);
-               $g = '31/12/'.($promocion + 10);
-               $h = '30/12/'.($promocion + 15);
-               $i = '31/12/'.($promocion + 15);
-               $j = '30/12/'.($promocion + 20);
-               $k = '31/12/'.($promocion + 20);
-               $l = '30/12/'.($promocion + 25);
-               $m = '31/12/'.($promocion + 25);
-               $n = '30/12/'.($promocion + 30);
-                
-                if ($fecha_grado >= $a && $fecha_grado <= $b){
-                    $grado = 17;
-                }
-                 if ($fecha_grado >= $c && $fecha_grado <= $d){
-                    $grado = 16;
-                }
-                 if ($fecha_grado >= $e && $fecha_grado <= $f){
-                    $grado = 15;
-                }
-                 if ($fecha_grado >= $g && $fecha_grado <= $h){
-                    $grado = 14;
-                }
-                if ($fecha_grado >= $i && $fecha_grado <= $j){
-                    $grado = 13;
-                }
-                 if ($fecha_grado >= $k && $fecha_grado <= $l){
-                    $grado = 12;
-                }
-                 if ($fecha_grado >= $m && $fecha_grado <= $n){
-                    $grado = 11;
-                }
-                             
-                //return response()->json($grado);
-            }
-           $dest = $grado;*/
-        
-
-        
-     //FIN DETERMINAR GRADO
         $personal_destino = PersonalDestinos::create([
             //'CAMPO DE LA TABLA' => $request->NOMBRE Q VIENE DE LA VISTA
-            'per_codigo' => $request->perdest_codigocambio,
+            'per_codigo' => $request->perdest_percodigo,
             'd1_cod' => $request->perdest_destn1_codigo,
             'd2_cod' => $request->perdest_destn2_codigo,
             'd3_cod' => $request->perdest_destn3_codigo,
@@ -292,16 +201,16 @@ class PersonalDestinosController extends Controller
             'promocion' => $request->promocion,
             'observacion' => $request->perdest_observaciones,
             'sysuser' => Auth::user()->id,
-            'flag' => '1',
+            'flag' => 1,
             'estado' => $perdest_estado,
         ]);
 
         $personal_cargo1 = PersonalCargo::create([
             //'CAMPO DE LA TABLA' => $request->NOMBRE Q VIENE DE LA VISTA
-            'per_codigo' => $request->perdest_codigocambio,
+            'per_codigo' => $request->perdest_percodigo,
             'dest_cod' => $personal_destino->id,
             'car_cod' => $request->perdest_cargo1,
-            'nivel_cargo' => '1',
+            'nivel_cargo' => 1,
             'fechadest' => $request->perdest_fechadestino,
             'observacion' => $request->perdest_observaciones,
             'sysuser' => Auth::user()->id,
@@ -312,10 +221,10 @@ class PersonalDestinosController extends Controller
         $personal_cargo2 = PersonalCargo::create([
             //'CAMPO DE LA TABLA' => $request->NOMBRE Q VIENE DE LA VISTA
             //PARA PONER FUNCION ASIGNARSE COMO DEFAULT
-            'per_codigo' => $request->perdest_codigocambio,
+            'per_codigo' => $request->perdest_percodigo,
             'dest_cod' => $personal_destino->id,
             'car_cod' => $idcargo2,
-            'nivel_cargo' => '2',
+            'nivel_cargo' => 2,
             'fechadest' => $request->perdest_fechadestino,
             'observacion' => $request->perdest_observaciones,
             'sysuser' => Auth::user()->id,

@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Route;
  * Rutas de funciones estandarizadas
  */
 
+/************RUTAS CONFIRMADAS EN SISTEMA */
+/************MIGRAR TABLAS */
+
+/************FIN MIGRAR TABLAS */
+Route::put('/migrar/personal_destinos', 'MigracionController@migrarPersonalDestinos');
+/************FIN RUTAS CONFIRMADAS */
+
 Route::post('/listadorPersonal','PersonalController@ListadorPersonal');
 Route::post('/listadorPersonalSofSgto','PersonalController@ListadorPersonalSofSgto');
 
