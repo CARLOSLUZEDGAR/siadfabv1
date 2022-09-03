@@ -131,23 +131,12 @@
                                 <th>1ER. CARGO</th>
                                 <th>2DO. CARGO</th>
                                 <th>FECHA DESTINO</th>
-                                <th>ESTADO</th>
+                                <th>OPCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <tr v-for="(personalDestinos, index) in arrayPersonalDestinos" :key="personalDestinos.id">
-                                
-                                <!-- <td style="width:100px; text-align:center">
-                                    <button v-if="$auth.can('edit-perdest')" type="button" class="btn btn-warning btn-sm" @click="abrirEditar(personalDestinos,arrayPersonalDestinos2)">
-                                        <i class="fas fa-edit"></i>
-                                    </button> &nbsp;
-                                    <template v-if="personalDestinos.estado==0">
-                                        <button v-if="$auth.can('delete-perdest')" type="button" class="btn btn-danger btn-sm" @click="desactivarDestino(personalDestinos)" >
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                    </template>
-                                </td> -->
                                 <td style="text-align:center; font-weight:bold;">{{ index + 1 }}</td>
                                 <td v-text="personalDestinos.desc_dn2" ></td>
                                 <td v-text="personalDestinos.desc_dn3" ></td>
@@ -157,14 +146,25 @@
                                 <!-- moment("D/MM/YYYY") cambiar formato de fecha -->
                                 <td ><center>{{personalDestinos.fechadestino | moment("D/MM/YYYY")}}</center></td>
                                 
-                                <td>
+                                <!-- <td>
                                 <div v-if="personalDestinos.estado == 1">
                                     <center><span class="badge badge-success">Actual</span></center>
                                 </div>
                                 <div v-else>
                                    <center><span class="badge badge-danger">Anterior</span></center>
                                 </div>
-                                </td>                           
+                                
+                                </td>   -->
+                                <td style="width:100px; text-align:center">
+                                    <button v-if="$auth.can('edit-perdest')" type="button" class="btn btn-warning btn-sm" @click="abrirEditar(personalDestinos,arrayPersonalDestinos2)">
+                                        <i class="fas fa-edit"></i>
+                                    </button> &nbsp;
+                                    <template v-if="personalDestinos.estado==0">
+                                        <button v-if="$auth.can('delete-perdest')" type="button" class="btn btn-danger btn-sm" @click="desactivarDestino(personalDestinos)" >
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                    </template>
+                                </td>                         
                             </tr>
                             
                         </tbody>
