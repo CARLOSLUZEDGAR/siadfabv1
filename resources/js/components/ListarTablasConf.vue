@@ -44,14 +44,41 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <div class="col-md-12">
-                      <button type="button" class="btn btn-secondary btn-sm" @click="personalDestinosTable()">
-                        <i class="far fa-file-alt" aria-hidden="true">  Personal Destinos</i>
-                      </button> &nbsp;
+                    <div class="row p-2 bd-highlight justify-content-center">
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-secondary btn-sm btn-block" @click="personalDestinosTable()">
+                          <i class="far fa-file-alt" aria-hidden="true">  Personal Destinos</i>
+                        </button> &nbsp;
+                      </div>
+                      <!-- <div class="col-md-2">
+                        <button type="button" class="btn btn-secondary btn-sm btn-block" @click="personalEscalafonesTable()">
+                          <i class="far fa-file-alt" aria-hidden="true">  Personal Escalafones</i>
+                        </button> &nbsp;
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-secondary btn-sm btn-block" @click="personalEstudiosTable()">
+                          <i class="far fa-file-alt" aria-hidden="true">  Personal Estudios</i>
+                        </button> &nbsp;
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-secondary btn-sm btn-block" @click="personalEspecialidadesTable()">
+                          <i class="far fa-file-alt" aria-hidden="true">  Personal Especialidades</i>
+                        </button> &nbsp;
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-secondary btn-sm btn-block" @click="personalSituacionesTable()">
+                          <i class="far fa-file-alt" aria-hidden="true">  Personal Situaciones</i>
+                        </button> &nbsp;
+                      </div> -->
                     </div>
                   </div>
                   <!-- /.card-footer-->
-                </div>                                                     
+                </div> 
+                
+                <!-- <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div> -->
+
               </div>
               <!-- /.card -->
             </div>
@@ -104,8 +131,22 @@ export default {
               })
               .then(function (response) {
                   //Respuesta de la peticion
-                  console.log(response);
+                  // console.log(response);
                   // me.listarPersonalDestinos(me.per_codigo);
+                  if (response.data.code == 200) {
+                      swal.fire(
+                          "Completa", //TITULO
+                          "Se migro correctamente las tablas personal_destinos", //TEXTO DE MENSAJE
+                          "success" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                      me.atras();
+                  } else {
+                      swal.fire(
+                          "Error", //TITULO
+                          "Ocurrio un error en la migración.", //TEXTO DE MENSAJE
+                          "error" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                  }
               })
               .catch(function (error) {
                   // handle error
@@ -117,41 +158,245 @@ export default {
           })  
         },
 
-        cuadroEfectivoDetallado(){
-          window.open('http://127.0.0.1:8000/cuadroEfectivoTotal');
-          // window.open('https://sipefab.fab.bo/cuadroEfectivoTotal');
-
+        personalEscalafonesTable(){
+          swal.fire({
+              title: 'Esta seguro de migrar los Datos a la Tabla personal_escalafones', // TITULO 
+              icon: 'question', //ICONO (success, warnning, error, info, question)
+              showCancelButton: true, //HABILITACION DEL BOTON CANCELAR
+              confirmButtonColor: 'info', // COLOR DEL BOTON PARA CONFIRMAR
+              cancelButtonColor: '#868077', // CLOR DEL BOTON CANCELAR
+              confirmButtonText: 'Confirmar', //TITULO DEL BOTON CONFIRMAR
+              cancelButtonText: 'Cancelar', //TIUTLO DEL BOTON CANCELAR
+              buttonsStyling: true,
+              reverseButtons: true
+              }).then((result) => {
+              if (result.value) {
+                  //CODIGO HA SER VALIDADO
+                  let me =this;
+                  // this.idPersonalDestino = personalDestinos.idpersonal_destinos,
+                  axios
+                  .put('/migrar/personal_escalafones', {
+              //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
+                  // idPersonalDestino : me.idPersonalDestino,
+                  // per_codigo : me.per_codigo,
+              })
+              .then(function (response) {
+                  //Respuesta de la peticion
+                  console.log(response);
+                  // me.listarPersonalDestinos(me.per_codigo);
+                  if (response.data.code == 200) {
+                      swal.fire(
+                          "Completa", //TITULO
+                          "Se migro correctamente las tablas personal_escalafones", //TEXTO DE MENSAJE
+                          "success" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                      me.atras();
+                  } else {
+                      swal.fire(
+                          "Error", //TITULO
+                          "Ocurrio un error en la migración.", //TEXTO DE MENSAJE
+                          "error" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                  }
+              })
+              .catch(function (error) {
+                  // handle error
+                  console.log(error);
+                  });
+              }else{
+                  console.log('no empezamos');
+              }
+          })  
         },
 
-        cuadroEgresadoNoEgresado(escalafon){
-          window.open('http://127.0.0.1:8000/cuadroEgresadoNoEgresado?esc='+escalafon);
-          // window.open('https://sipefab.fab.bo/cuadroEgresadoNoEgresado?esc='+escalafon);
-
+        personalEstudiosTable(){
+          swal.fire({
+              title: 'Esta seguro de migrar los Datos a la Tabla personal_destinos', // TITULO 
+              icon: 'question', //ICONO (success, warnning, error, info, question)
+              showCancelButton: true, //HABILITACION DEL BOTON CANCELAR
+              confirmButtonColor: 'info', // COLOR DEL BOTON PARA CONFIRMAR
+              cancelButtonColor: '#868077', // CLOR DEL BOTON CANCELAR
+              confirmButtonText: 'Confirmar', //TITULO DEL BOTON CONFIRMAR
+              cancelButtonText: 'Cancelar', //TIUTLO DEL BOTON CANCELAR
+              buttonsStyling: true,
+              reverseButtons: true
+              }).then((result) => {
+              if (result.value) {
+                  //CODIGO HA SER VALIDADO
+                  let me =this;
+                  // this.idPersonalDestino = personalDestinos.idpersonal_destinos,
+                  axios
+                  .put('/migrar/personal_destinos', {
+              //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
+                  // idPersonalDestino : me.idPersonalDestino,
+                  // per_codigo : me.per_codigo,
+              })
+              .then(function (response) {
+                  //Respuesta de la peticion
+                  console.log(response);
+                  // me.listarPersonalDestinos(me.per_codigo);
+                  if (response.data.code == 200) {
+                      swal.fire(
+                          "Completa", //TITULO
+                          "Se migro correctamente las tablas personal_destinos y personal_cargos", //TEXTO DE MENSAJE
+                          "success" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                      me.atras();
+                  } else {
+                      swal.fire(
+                          "Error", //TITULO
+                          "Ocurrio un error en la migración.", //TEXTO DE MENSAJE
+                          "error" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                  }
+              })
+              .catch(function (error) {
+                  // handle error
+                  console.log(error);
+                  });
+              }else{
+                  console.log('no empezamos');
+              }
+          })  
         },
 
-        cuadroFamiliaresPersonal(escalafon){
-          window.open('http://127.0.0.1:8000/cuadroFamiliaresPersonal?esc='+escalafon);
-          // window.open('https://sipefab.fab.bo/cuadroFamiliaresPersonal?esc='+escalafon);
-
+        personalEspecialidadesTable(){
+          swal.fire({
+              title: 'Esta seguro de migrar los Datos a la Tabla personal_destinos', // TITULO 
+              icon: 'question', //ICONO (success, warnning, error, info, question)
+              showCancelButton: true, //HABILITACION DEL BOTON CANCELAR
+              confirmButtonColor: 'info', // COLOR DEL BOTON PARA CONFIRMAR
+              cancelButtonColor: '#868077', // CLOR DEL BOTON CANCELAR
+              confirmButtonText: 'Confirmar', //TITULO DEL BOTON CONFIRMAR
+              cancelButtonText: 'Cancelar', //TIUTLO DEL BOTON CANCELAR
+              buttonsStyling: true,
+              reverseButtons: true
+              }).then((result) => {
+              if (result.value) {
+                  //CODIGO HA SER VALIDADO
+                  let me =this;
+                  // this.idPersonalDestino = personalDestinos.idpersonal_destinos,
+                  axios
+                  .put('/migrar/personal_destinos', {
+              //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
+                  // idPersonalDestino : me.idPersonalDestino,
+                  // per_codigo : me.per_codigo,
+              })
+              .then(function (response) {
+                  //Respuesta de la peticion
+                  console.log(response);
+                  // me.listarPersonalDestinos(me.per_codigo);
+                  if (response.data.code == 200) {
+                      swal.fire(
+                          "Completa", //TITULO
+                          "Se migro correctamente las tablas personal_destinos y personal_cargos", //TEXTO DE MENSAJE
+                          "success" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                      me.atras();
+                  } else {
+                      swal.fire(
+                          "Error", //TITULO
+                          "Ocurrio un error en la migración.", //TEXTO DE MENSAJE
+                          "error" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                  }
+              })
+              .catch(function (error) {
+                  // handle error
+                  console.log(error);
+                  });
+              }else{
+                  console.log('no empezamos');
+              }
+          })  
         },
 
-        cuadroPromocionCant(escalafon){
-          window.open('http://127.0.0.1:8000/cuadroPromocionCant?esc='+escalafon);
-          // window.open('https://sipefab.fab.bo/cuadroPromocionCant?esc='+escalafon);
-
+        personalSituacionesTable(){
+          swal.fire({
+              title: 'Esta seguro de migrar los Datos a la Tabla personal_destinos', // TITULO 
+              icon: 'question', //ICONO (success, warnning, error, info, question)
+              showCancelButton: true, //HABILITACION DEL BOTON CANCELAR
+              confirmButtonColor: 'info', // COLOR DEL BOTON PARA CONFIRMAR
+              cancelButtonColor: '#868077', // CLOR DEL BOTON CANCELAR
+              confirmButtonText: 'Confirmar', //TITULO DEL BOTON CONFIRMAR
+              cancelButtonText: 'Cancelar', //TIUTLO DEL BOTON CANCELAR
+              buttonsStyling: true,
+              reverseButtons: true
+              }).then((result) => {
+              if (result.value) {
+                  //CODIGO HA SER VALIDADO
+                  let me =this;
+                  // this.idPersonalDestino = personalDestinos.idpersonal_destinos,
+                  axios
+                  .put('/migrar/personal_destinos', {
+              //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
+                  // idPersonalDestino : me.idPersonalDestino,
+                  // per_codigo : me.per_codigo,
+              })
+              .then(function (response) {
+                  //Respuesta de la peticion
+                  console.log(response);
+                  // me.listarPersonalDestinos(me.per_codigo);
+                  if (response.data.code == 200) {
+                      swal.fire(
+                          "Completa", //TITULO
+                          "Se migro correctamente las tablas personal_destinos y personal_cargos", //TEXTO DE MENSAJE
+                          "success" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                      me.atras();
+                  } else {
+                      swal.fire(
+                          "Error", //TITULO
+                          "Ocurrio un error en la migración.", //TEXTO DE MENSAJE
+                          "error" // TIPO DE MODAL (success, warnning, error, info)
+                      );
+                  }
+              })
+              .catch(function (error) {
+                  // handle error
+                  console.log(error);
+                  });
+              }else{
+                  console.log('no empezamos');
+              }
+          })  
         },
 
-        cuadroSituacionPersonal(escalafon){
-          window.open('http://127.0.0.1:8000/cuadroSituacionPersonal?esc='+escalafon);
-          // window.open('https://sipefab.fab.bo/cuadroSituacionPersonal?esc='+escalafon);
+        // cuadroEfectivoDetallado(){
+        //   window.open('http://127.0.0.1:8000/cuadroEfectivoTotal');
+        //   // window.open('https://sipefab.fab.bo/cuadroEfectivoTotal');
 
-        },
+        // },
 
-        cuadroFechaIncorporacion(escalafon){
-          window.open('http://127.0.0.1:8000/cuadroFechaIncorporacion?esc='+escalafon);
-          // window.open('https://sipefab.fab.bo/cuadroFechaIncorporacion?esc='+escalafon);
+        // cuadroEgresadoNoEgresado(escalafon){
+        //   window.open('http://127.0.0.1:8000/cuadroEgresadoNoEgresado?esc='+escalafon);
+        //   // window.open('https://sipefab.fab.bo/cuadroEgresadoNoEgresado?esc='+escalafon);
 
-        },        
+        // },
+
+        // cuadroFamiliaresPersonal(escalafon){
+        //   window.open('http://127.0.0.1:8000/cuadroFamiliaresPersonal?esc='+escalafon);
+        //   // window.open('https://sipefab.fab.bo/cuadroFamiliaresPersonal?esc='+escalafon);
+
+        // },
+
+        // cuadroPromocionCant(escalafon){
+        //   window.open('http://127.0.0.1:8000/cuadroPromocionCant?esc='+escalafon);
+        //   // window.open('https://sipefab.fab.bo/cuadroPromocionCant?esc='+escalafon);
+
+        // },
+
+        // cuadroSituacionPersonal(escalafon){
+        //   window.open('http://127.0.0.1:8000/cuadroSituacionPersonal?esc='+escalafon);
+        //   // window.open('https://sipefab.fab.bo/cuadroSituacionPersonal?esc='+escalafon);
+
+        // },
+
+        // cuadroFechaIncorporacion(escalafon){
+        //   window.open('http://127.0.0.1:8000/cuadroFechaIncorporacion?esc='+escalafon);
+        //   // window.open('https://sipefab.fab.bo/cuadroFechaIncorporacion?esc='+escalafon);
+
+        // },        
   },
 };
 

@@ -90,8 +90,8 @@
 
                                     <div class="row p-2 bd-highlight justify-content-center">
                                         <div class="col-md-4">                                            
-                                            <button v-if="$auth.can('insert-perdest')" type="button" class="btn btn-primary btn-sm btn-block" @click="NuevoDestino()">
-                                                <i class="fas fa-plus" aria-hidden="true">  Nuevo Destino</i>
+                                            <button v-if="$auth.can('report-ordest')" type="button" class="btn btn-secondary btn-sm btn-block" @click="abrirOGD()">
+                                                <i class="far fa-file-alt" aria-hidden="true">  Orden de Destinos</i>
                                             </button> &nbsp; 
                                         </div>
                                         
@@ -101,6 +101,8 @@
                                             </button> &nbsp;
                                         </div>
                                     </div>
+
+                                    
 
                                 </div>
                                 
@@ -144,7 +146,7 @@
                                 <td v-text="personalDestinos.cargo"></td> 
                                 <td style="text-align:center">{{ arrayPersonalDestinos2.find(function(el) { return el.idpersonal_destinos == personalDestinos.idpersonal_destinos; } ).cargo2 }}</td>                
                                 <!-- moment("D/MM/YYYY") cambiar formato de fecha -->
-                                <td ><center>{{personalDestinos.fechadestino | moment("D/MM/YYYY")}}</center></td>
+                                <td style="text-align:center;">{{personalDestinos.fechadestino | moment("D/MM/YYYY")}}</td>
                                 
                                 <!-- <td>
                                 <div v-if="personalDestinos.estado == 1">
@@ -156,14 +158,14 @@
                                 
                                 </td>   -->
                                 <td style="width:100px; text-align:center">
-                                    <button v-if="$auth.can('edit-perdest')" type="button" class="btn btn-warning btn-sm" @click="abrirEditar(personalDestinos,arrayPersonalDestinos2)">
+                                    <button v-if="$auth.can('edit-perdest')" type="button" class="btn btn-warning btn-sm" @click="abrirEditar(personalDestinos,arrayDatosPersonal)">
                                         <i class="fas fa-edit"></i>
                                     </button> &nbsp;
-                                    <template v-if="personalDestinos.estado==0">
+                                    <!-- <template v-if="personalDestinos.estado==0">
                                         <button v-if="$auth.can('delete-perdest')" type="button" class="btn btn-danger btn-sm" @click="desactivarDestino(personalDestinos)" >
                                         <i class="far fa-trash-alt"></i>
                                     </button>
-                                    </template>
+                                    </template> -->
                                 </td>                         
                             </tr>
                             
@@ -270,7 +272,6 @@
                             <select class="form-control" v-model="perdest_destn3_codigo" v-on:change="changeItem3(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn3_codigo.$error, 'is-valid':!$v.perdest_destn3_codigo.$invalid }">
                                 <option value="" disabled>SELECCIONE</option>
                                 <option v-for="destinos_nivel3 in arrayDestinos_nivel3" :key="destinos_nivel3.id" :value="destinos_nivel3.id"  v-text="destinos_nivel3.descripcion"></option>
-                            
                             </select>
                             <div class="invalid-feedback">
                                 <span v-if="!$v.perdest_destn3_codigo.required">Este campo es Requerido</span>
@@ -347,156 +348,187 @@
       <!-- /.modal -->
 
       
-<div class="modal fade" id="EditarDestino">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title-edit"></h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="Cerrar()">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input" >Nro. Documento</label>
-                        <input type="text" v-model="perdest_nro_docA" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_docA.$error, 'is-valid':!$v.perdest_nro_docA.$invalid }">
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_nro_docA.required">Este campo es Requerido</span>
-                        </div>
+        <div class="modal fade" id="EditarDestino">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title-edit"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="Cerrar()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Tipo Documento</label>
-                        <select class="form-control" v-model="perdest_tipo_docA" :class="{ 'is-invalid' : $v.perdest_tipo_docA.$error, 'is-valid':!$v.perdest_tipo_docA.$invalid }">
-                            <option value="0" disabled>SELECCIONAR</option>
-                            <option value="ORDEN GENERAL DE DESTINOS">ORDEN GENERAL DE DESTINOS</option>
-                            <option value="MEMORANDUM">MEMORANDUM</option>
-                            <option value="FAX">FAX</option>
-                        </select>
-                        <div class="invalid-feedback">
-                                <span v-if="!$v.perdest_tipo_docA.required">Este campo es Requerido</span>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input" >Nro. Documento</label>
+                                <input type="text" v-model="perdest_nro_docA" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_docA.$error, 'is-valid':!$v.perdest_nro_docA.$invalid }" disabled>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_nro_docA.required">Este campo es Requerido</span>
+                                </div>
                             </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Fecha de Documento</label>
-                        <input type="date" v-model="perdest_fechadestinoA" class="form-control" :class="{ 'is-invalid' : $v.perdest_fechadestinoA.$error, 'is-valid':!$v.perdest_fechadestinoA.$invalid }">
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_fechadestinoA.required">Este campo es Requerido</span>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Tipo Documento</label>
+                                <select class="form-control" v-model="perdest_tipo_docA" :class="{ 'is-invalid' : $v.perdest_tipo_docA.$error, 'is-valid':!$v.perdest_tipo_docA.$invalid }" disabled>
+                                    <option value="ORDEN GENERAL DE DESTINOS">ORDEN GENERAL DE DESTINOS</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                        <span v-if="!$v.perdest_tipo_docA.required">Este campo es Requerido</span>
+                                    </div>
+                            </div>
                         </div>
-
-                        <!-- <label class="form-control-label" for="text-input">Fecha Documento</label>
-                        <date-picker class="dat" value-type="date" format="DD/MM/YYYY" v-model="perdest_fechadestinoA" :disabled-date="fechaactual" :class="{ 'is-invalid' : $v.perdest_fechadestinoA.$error, 'is-valid':!$v.perdest_fechadestinoA.$invalid }">
-                        </date-picker>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_fechadestinoA.required">Este campo es Requerido</span>
-                        </div> -->
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Grado en el Destino</label>
-                        <select class="form-control" v-model="perdest_gradoA" :class="{ 'is-invalid' : $v.perdest_gradoA.$error, 'is-valid':!$v.perdest_gradoA.$invalid }">
-                            <option value="0" disabled>SELECCIONE</option>
-                            <option v-for="grados in arrayGrados" :key="grados.id" :value="grados.id"  v-text="grados.abreviatura"></option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_gradoA.required">Este campo es Requerido</span>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Fecha de Documento</label>
+                                <input type="date" v-model="perdest_fechadestinoA" class="form-control" :class="{ 'is-invalid' : $v.perdest_fechadestinoA.$error, 'is-valid':!$v.perdest_fechadestinoA.$invalid }" disabled>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_fechadestinoA.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Grado en el Destino</label>
+                                <select class="form-control" v-model="perdest_gradoA" :class="{ 'is-invalid' : $v.perdest_gradoA.$error, 'is-valid':!$v.perdest_gradoA.$invalid }" disabled>
+                                    <option v-for="grados in arrayGrados" :key="grados.id" :value="grados.id"  v-text="grados.abreviatura"></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_gradoA.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Organismo</label>
-                        <select class="form-control" v-model="perdest_destn1_codigoA" v-on:change="changeItem1(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn1_codigoA.$error, 'is-valid':!$v.perdest_destn1_codigoA.$invalid }">
-                            <option value="0" disabled>SELECCIONE</option>
-                            <option v-for="destinos_nivel1 in arrayDestinos_nivel1" :key="destinos_nivel1.id" :value="destinos_nivel1.id"  v-text="destinos_nivel1.descripcion"></option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_destn1_codigoA.required">Este campo es Requerido</span>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Organismo</label>
+                                <select class="form-control" v-model="perdest_destn1_codigoA" v-on:change="changeItem1(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn1_codigoA.$error, 'is-valid':!$v.perdest_destn1_codigoA.$invalid }">
+                                    <option value="0" disabled>SELECCIONE</option>
+                                    <option v-for="destinos_nivel1 in arrayDestinos_nivel1" :key="destinos_nivel1.id" :value="destinos_nivel1.id"  v-text="destinos_nivel1.descripcion"></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_destn1_codigoA.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Gran Unidad</label>
+                                <select class="form-control" v-model="perdest_destn2_codigoA" v-on:change="changeItem2(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn2_codigoA.$error, 'is-valid':!$v.perdest_destn2_codigoA.$invalid }">
+                                    <option value="0" disabled>SELECCIONE</option>
+                                    <option v-for="destinos_nivel2 in arrayDestinos_nivel2" :key="destinos_nivel2.id" :value="destinos_nivel2.id"  v-text="destinos_nivel2.descripcion"></option>                        
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_destn2_codigoA.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
+                            
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Gran Unidad</label>
-                        <select class="form-control" v-model="perdest_destn2_codigoA" v-on:change="changeItem2(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn2_codigoA.$error, 'is-valid':!$v.perdest_destn2_codigoA.$invalid }">
-                            <option value="0" disabled>SELECCIONE</option>
-                            <option v-for="destinos_nivel2 in arrayDestinos_nivel2" :key="destinos_nivel2.id" :value="destinos_nivel2.id"  v-text="destinos_nivel2.descripcion"></option>                        
-                        </select>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_destn2_codigoA.required">Este campo es Requerido</span>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="col-md-2 form-control-label" for="text-input">Repartición</label>
+                                <select class="form-control" v-model="perdest_destn3_codigoA" v-on:change="changeItem3(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn3_codigoA.$error, 'is-valid':!$v.perdest_destn3_codigoA.$invalid }">
+                                    <option value="0" disabled>SELECCIONE</option>
+                                    <option v-for="destinos_nivel3 in arrayDestinos_nivel3" :key="destinos_nivel3.id" :value="destinos_nivel3.id"  v-text="destinos_nivel3.descripcion"></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_destn3_codigoA.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Subrepartición</label>
+                                <select class="form-control" v-model="perdest_destn4_codigoA" :class="{ 'is-invalid' : $v.perdest_destn4_codigoA.$error, 'is-valid':!$v.perdest_destn4_codigoA.$invalid }">
+                                    <option value="0" disabled>SELECCIONE</option>
+                                    <option v-for="destinos_nivel4 in arrayDestinos_nivel4" :key="destinos_nivel4.id" :value="destinos_nivel4.id"  v-text="destinos_nivel4.descripcion"></option>
+                                
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_destn4_codigoA.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label class="col-md-2 form-control-label" for="text-input">Repartición</label>
-                        <select class="form-control" v-model="perdest_destn3_codigoA" v-on:change="changeItem3(rowId, $event)" :class="{ 'is-invalid' : $v.perdest_destn3_codigoA.$error, 'is-valid':!$v.perdest_destn3_codigoA.$invalid }">
-                            <option value="0" disabled>SELECCIONE</option>
-                            <option v-for="destinos_nivel3 in arrayDestinos_nivel3" :key="destinos_nivel3.id" :value="destinos_nivel3.id"  v-text="destinos_nivel3.descripcion"></option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_destn3_codigoA.required">Este campo es Requerido</span>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Primer Cargo</label>
+                                <select class="form-control" v-model="perdest_cargo1A" :class="{ 'is-invalid' : $v.perdest_cargo1A.$error, 'is-valid':!$v.perdest_cargo1A.$invalid }">
+                                        <option value="0" disabled>SELECCIONE</option>
+                                        <option v-for="cargos in arrayCargos" :key="cargos.id" :value="cargos.id"  v-text="cargos.descripcion"></option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_cargo1A.required">Este campo es Requerido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input">Segundo Cargo</label>
+                                <select class="form-control" v-model="perdest_cargo2A">
+                                    <option value="0" disabled>SELECCIONE</option>
+                                    <option v-for="cargos in arrayCargos" :key="cargos.id" :value="cargos.id"  v-text="cargos.descripcion"></option>
+                                </select>                                 
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Subrepartición</label>
-                        <select class="form-control" v-model="perdest_destn4_codigoA" :class="{ 'is-invalid' : $v.perdest_destn4_codigoA.$error, 'is-valid':!$v.perdest_destn4_codigoA.$invalid }">
-                            <option value="0" disabled>SELECCIONE</option>
-                            <option v-for="destinos_nivel4 in arrayDestinos_nivel4" :key="destinos_nivel4.id" :value="destinos_nivel4.id"  v-text="destinos_nivel4.descripcion"></option>
-                        
-                        </select>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_destn4_codigoA.required">Este campo es Requerido</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Primer Cargo</label>
-                        <select class="form-control" v-model="perdest_cargo1A" :class="{ 'is-invalid' : $v.perdest_cargo1A.$error, 'is-valid':!$v.perdest_cargo1A.$invalid }">
-                                <option value="0" disabled>SELECCIONE</option>
-                                <option v-for="cargos in arrayCargos" :key="cargos.id" :value="cargos.id"  v-text="cargos.descripcion"></option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <span v-if="!$v.perdest_cargo1A.required">Este campo es Requerido</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-control-label" for="text-input">Segundo Cargo</label>
-                        <select class="form-control" v-model="perdest_cargo2A">
-                            <option value="0" disabled>SELECCIONE</option>
-                            <option v-for="cargos in arrayCargos" :key="cargos.id" :value="cargos.id"  v-text="cargos.descripcion"></option>
-                        </select>                                 
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-md-12">
-                        <label class="form-control-label" for="text-input">Observación</label>
-                        <textarea name="textarea" class="form-control" rows="3" v-model="perdest_observacionesA"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row"><!--errores-->
-                    <div v-show="errorDestinosActualizar" class="form-group row div-error">
-                        <div class="text-center text-error">
-                            <div v-for="error in errorMostrarMsjDestinosActualizar" :key="error" v-text="error">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label class="form-control-label" for="text-input">Observación</label>
+                                <textarea name="textarea" class="form-control" rows="3" v-model="perdest_observacionesA"></textarea>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @click="EditarDestino()">Actualizar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" @click="Cerrar()">Cerrar</button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @click="EditarDestino()">Actualizar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" @click="Cerrar()">Cerrar</button>
-
-            </div>
-          </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
+
+        <div class="modal fade" id="FirmasOGD">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title-edit"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="Cerrar()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input" >Comandante FAB</label>
+                                <input type="text" v-model="cmdte" class="form-control">
+                                <!-- <input type="text" v-model="perdest_nro_docA" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_docA.$error, 'is-valid':!$v.perdest_nro_docA.$invalid }" disabled>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_nro_docA.required">Este campo es Requerido</span>
+                                </div> -->
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input" >Comandante en Jefe</label>
+                                <input type="text" v-model="cmdteJefe" class="form-control">
+                                <!-- <input type="text" v-model="perdest_nro_docA" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_docA.$error, 'is-valid':!$v.perdest_nro_docA.$invalid }" disabled>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_nro_docA.required">Este campo es Requerido</span>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input" >Ministro de Defensa</label>
+                                <input type="text" v-model="minDef" class="form-control">
+                                <!-- <input type="text" v-model="perdest_nro_docA" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_docA.$error, 'is-valid':!$v.perdest_nro_docA.$invalid }" disabled>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_nro_docA.required">Este campo es Requerido</span>
+                                </div> -->
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-control-label" for="text-input" >Presidente</label>
+                                <input type="text" v-model="presidente" class="form-control">
+                                <!-- <input type="text" v-model="perdest_nro_docA" class="form-control" :class="{ 'is-invalid' : $v.perdest_nro_docA.$error, 'is-valid':!$v.perdest_nro_docA.$invalid }" disabled>
+                                <div class="invalid-feedback">
+                                    <span v-if="!$v.perdest_nro_docA.required">Este campo es Requerido</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @click="reporteOGD()">Generar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" @click="Cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal -->
     </section>
     <!-- /.content -->
   </div>
@@ -519,6 +551,10 @@ export default {
             arrayDatosPersonal : [],
             arrayGrados : [],
 
+            cmdte : '',
+            cmdteJefe : '',
+            minDef : '',
+            presidente : '',
             numeral : 0,
 
             errorDestinosActualizar : 0,
@@ -707,18 +743,18 @@ export default {
             let me = this;
             axios
         
-          .post("/listarGrado", {
-            division : me.arrayDatosPersonal.division
-          })
-          .then(function (response) {
-            console.log(response)
-            me.arrayGrados = response.data.listar_grado;
-            // me.pagination = response.data.pagination;
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          })
+            .post("/listarGrado", {
+                division : me.arrayDatosPersonal.division
+            })
+            .then(function (response) {
+                console.log(response)
+                me.arrayGrados = response.data.listar_grado;
+                // me.pagination = response.data.pagination;
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
         },
 
         cambiarPagina(page){
@@ -894,8 +930,6 @@ export default {
             })
             .then(function (response) {
         //Respuesta de la peticion
-            
-            
             me.arrayCargos = response.data;
             })
             .catch(function (error) {
@@ -904,7 +938,7 @@ export default {
             });
         },
 
-       obtenerPromocion(){
+        obtenerPromocion(){
            this.per_cm = this.arrayDatosPersonal.per_cm;
                 //obtiene la gestion actual
             var fecha = new Date();
@@ -1027,7 +1061,7 @@ export default {
             }
         },
 
-        abrirEditar(personalDestinos,arrayPersonalDestinos2){
+        abrirEditar(personalDestinos,arrayDatosPersonal){
             let me =this;
             this.$v.$reset(),
             this.idPersonalDestino = personalDestinos.idpersonal_destinos,
@@ -1037,7 +1071,7 @@ export default {
             this.perdest_fechadestinoA = this.perdest_fechadestinoA.substring(0,10);
                                         var info10 = this.perdest_fechadestinoA.split('-');
                                         this.perdest_fechadestinoA = info10[0] + '-' + info10[1] + '-' + info10[2];
-            this.perdest_gradoA = personalDestinos.gra_cod,
+            this.perdest_gradoA = arrayDatosPersonal.idgrado,
             this.perdest_destn1_codigoA = personalDestinos.d1_cod,
             this.perdest_destn2_codigoA = personalDestinos.d2_cod,
             this.perdest_destn3_codigoA = personalDestinos.d3_cod,
@@ -1051,7 +1085,7 @@ export default {
             $('#EditarDestino').modal('show');
             $(".modal-header").css("background-color", "#007bff");
             $(".modal-header").css("color", "white" );
-            $(".modal-title-edit").text("Editar Destino");
+            $(".modal-title-edit").text("DESTINO: "+arrayDatosPersonal.gra_abreviatura+arrayDatosPersonal.estu_abreviatura+' '+arrayDatosPersonal.per_nombre+' '+arrayDatosPersonal.per_paterno+' '+arrayDatosPersonal.per_materno);
             this.obtenerPromocion()
             this.selectDestinos_nivel1()
             this.selectDestinos_nivel2()
@@ -1068,7 +1102,7 @@ export default {
             this.$v.$reset();
             if(!this.$v.validationGroupEdit.$invalid){
                 swal.fire({
-                    title: 'Esta seguro de modificar este destino', // TITULO 
+                    title: 'Esta seguro de Cambiar de Destino', // TITULO 
                     icon: 'question', //ICONO (success, warnning, error, info, question)
                     showCancelButton: true, //HABILITACION DEL BOTON CANCELAR
                     confirmButtonColor: 'info', // COLOR DEL BOTON PARA CONFIRMAR
@@ -1123,6 +1157,19 @@ export default {
                 })
                 
             }
+        },
+
+        abrirOGD(){
+            let me =this;
+            this.$v.$reset(),
+            this.cmdte = '',
+            this.cmdteJefe = '',
+            this.minDef = '',
+            this.presidente = '',
+            $('#FirmasOGD').modal('show');
+            $(".modal-header").css("background-color", "#007bff");
+            $(".modal-header").css("color", "white" );
+            $(".modal-title-edit").text("Firmas OGD");
         },
 
         desactivarDestino(personalDestinos){
@@ -1217,6 +1264,25 @@ export default {
                 }
                 
             });
+        },
+
+        reporteOGD(cmdteFAB,cmdteFFAA,minDEF,presidente){
+            this.$v.$reset()
+            // if(!this.$v.$invalid){
+            // window.open('http://192.168.3.77/ordenDestinos');
+            // window.open('http://127.0.0.1/ordenDestinos');
+            // window.open('http://sipefab.fab.bo/ordenDestinos?cmdtefab='+cmdteFAB+'&cmdteffaa='+cmdteFFAA+'&mindef='+minDEF+'&presidente='+presidente);
+            window.open('http://127.0.0.1:8000/ordenDestinos?cmdtefab='+cmdteFAB+'&cmdteffaa='+cmdteFFAA+'&mindef='+minDEF+'&presidente='+presidente);
+            // }
+            // else{
+            //     this.$v.$touch();
+            //     Swal.fire({
+            //         icon: 'warning',
+            //         title: 'Ingrese todos los datos requeridos',
+            //         showConfirmButton: false,
+            //         timer: 2000
+            //     })  
+            // }
         },
 
         Atras(){

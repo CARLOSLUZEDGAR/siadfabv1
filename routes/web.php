@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 /************FIN MIGRAR TABLAS */
 Route::put('/migrar/personal_destinos', 'MigracionController@migrarPersonalDestinos');
+Route::put('/migrar/personal_escalafones', 'MigracionController@migrarPersonalEscalafones');
+
 /************FIN RUTAS CONFIRMADAS */
 
 Route::post('/listadorPersonal','PersonalController@ListadorPersonal');
