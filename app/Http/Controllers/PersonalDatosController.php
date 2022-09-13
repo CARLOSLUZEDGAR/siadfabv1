@@ -36,7 +36,7 @@ class PersonalDatosController extends Controller
     {
         $per_codigo = $request->per_codigo;
         $division = $request->division;
-        $personal_datos = DB::table('personals')
+        $personal_datos = DB::connection('pgsql_server')->table('personals')
         ->leftjoin('personal_escalafones','personals.per_codigo','personal_escalafones.per_codigo')
         ->leftjoin('escalafones','escalafones.id','personal_escalafones.esca_cod')
         ->leftjoin('subescalafones','subescalafones.id','personal_escalafones.subesc_cod')
@@ -104,7 +104,8 @@ class PersonalDatosController extends Controller
         //         'detalle_situacion.detsit_nombre')
         // ->where('personals.per_codigo',$per_codigo)
         // ->get();
-        $personal_only_sit = DB::table('personals')
+
+        $personal_only_sit = DB::connection('pgsql_server')->table('personals')
         ->leftjoin('personal_situaciones','personal_situaciones.per_codigo','personals.per_codigo')
         ->leftjoin('situaciones','situaciones.id','personal_situaciones.sit_cod')
         ->leftjoin('subsituaciones','subsituaciones.id','personal_situaciones.subsit_cod')
@@ -124,7 +125,17 @@ class PersonalDatosController extends Controller
         ->orderBy('personal_situaciones.fecha_documento','asc')
         ->get();
 
-        $listar_grado = DB::table('grados')
+        $personal_profesion = DB::connection('pgsql_server')->table('personals')
+                                ->leftJoin('personal_profesiones','personals.per_codigo','personal_profesiones.per_codigo')
+                                // ->join('nivel_profesionals','nivel_profesionals.id','personal_profesiones.nivprof_codigo')
+                                // ->leftjoin('carreras','carreras.id','personal_profesiones.car_codigo')
+                                ->select('personal_profesiones.descripcion as prof')
+                                ->whereIn('personal_profesiones.car_codigo',[5,6,7])
+                                ->where('personals.per_codigo',$per_codigo)
+                                // ->orderBy('carreras.id')
+                                ->get();
+
+        $listar_grado = DB::connection('pgsql_server')->table('grados')
                         ->select('id',
                                 'abreviatura',
                                 'nombre',
@@ -132,7 +143,7 @@ class PersonalDatosController extends Controller
                         ->where('division',$division)
                         ->orderBy('id','asc')
                         ->get();
-        return response()->json(['personal_datos' => $personal_datos,'personal_only_sit' => $personal_only_sit, 'listar_grado' => $listar_grado]);
+        return response()->json(['personal_datos' => $personal_datos,'personal_only_sit' => $personal_only_sit, 'listar_grado' => $listar_grado, 'profesiones' => $personal_profesion]);
        // return response()->json($personal_datos);
 
     }

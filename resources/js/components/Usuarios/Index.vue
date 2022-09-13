@@ -541,7 +541,7 @@ export default {
                         percodigo: me.per.id
                     })
                     .then(function (response) {
-                        
+                        console.log(response);
                         me.datos = response.data;
                         me.nick = me.datos.nombre.substring(0,1)+ me.datos.paterno.substring(0,1)+ me.datos.materno.substring(0,1)+me.datos.percodigo+me.datos.cm.substring(0,3);
                         $('#NuevoUsuario').modal('show');

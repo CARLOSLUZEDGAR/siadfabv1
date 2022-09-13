@@ -21,7 +21,7 @@
                         <div class="col-md-6">
                             
                           <font size=4><br><br>    
-                          Bienvenido(s) al Sistema de Personal, desarrollado por la Dirección General de Tecnologías de Información y Comunicaciones de la FAB, 
+                          Bienvenido(s) al Sistema de Asignación de Destinos para el Personal, desarrollado por la Dirección General de Tecnologías de Información y Comunicaciones de la FAB, 
                           con la finalidad de contribuir al engrandecimiento de nuestra Institución 
                           y este a la par del avance tecnológico actual para el servicio de nuestro personal. <br>
                                <br> <br><br>Atte.<br></font>

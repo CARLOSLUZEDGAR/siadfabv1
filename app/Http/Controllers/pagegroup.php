@@ -37,6 +37,7 @@ class pagegroup extends FPDF
     function CantPagesAnterior()
     {
         return "{nb$this->n}";
+        // return "{nb}";
     }
 
     function _beginpage($orientation, $size, $rotation)

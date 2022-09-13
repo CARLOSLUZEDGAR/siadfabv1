@@ -31,11 +31,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2">
-                                <img v-bind:src="'../img/personal/'+arrayDatosPersonal.per_foto" class="rounded float-left img-fluid" width="150" height="150">
-
-                                <!-- <img :src="'../img/personal/'+datos.foto" width="100%" height="60%"> -->
+                                <img v-bind:src="'../img/personal/'+arrayDatosPersonal.per_foto" class="rounded float-left img-fluid" width="150" height="150"><br/>
+                                <!-- <dl>
+                                    <dt class="st">CARNET DE IDENTIDAD</dt>
+                                    <dd class="st">{{arrayDatosPersonal.per_ci}} {{arrayDatosPersonal.per_expedido}}</dd>
+                                </dl>       -->
                             </div>
-                    
                             <div class="col-md-10 d-flex align-items-center">
                                 <div style="" class="col-md-12 d-flex flex-column bd-highlight mb-3">
                                     <!-- FILA 1 -->
@@ -48,7 +49,7 @@
                                                 <!-- <dd class="st">{{ datos.grado }} {{ datos.complemento }} {{ datos.nombre }} {{ datos.paterno }} {{ datos.materno }}</dd> -->
                                             </dl>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <dl>
                                                 <dt class="st">CARNET MILITAR</dt>
                                                 <dd class="st">{{arrayDatosPersonal.per_cm}}</dd>
@@ -63,34 +64,51 @@
                                                 <dd class="st">{{arrayDatosPersonal.per_ci}} {{arrayDatosPersonal.per_expedido}}</dd>
                                             </dl>
                                         </div>
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <dl>
                                                 <dt class="st">DESTINO ACTUAL</dt>
                                                 <dd class="st">{{arrayDatosPersonal.nomd3}} - {{arrayDatosPersonal.nomd4}}</dd>
+                                            </dl>
+                                        </div> -->
+                                        <div class="col-md-6">
+                                            <dl>
+                                                <dt class="st">ESPECIALIDAD - SUBESPECIALIDAD</dt>
+                                                <dd class="st">{{arrayDatosPersonal.nomespe}} - {{arrayDatosPersonal.nomsubespe}}</dd>
                                             </dl>
                                         </div>
 
                                     </div>
                                     <!-- FILA 3 -->
                                     <div class="row p-2 bd-highlight">
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <dl>
                                                 <dt class="st">ESPECIALIDAD-SUBESPECIALIDAD</dt>
                                                 <dd class="st">{{arrayDatosPersonal.nomespe}} - {{arrayDatosPersonal.nomsubespe}}</dd>
                                             </dl>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-6">
                                             <dl>
-                                                <dt class="st">SITUACION ACTUAL</dt>
+                                                <dt class="st">SITUACIÓN ACTUAL</dt>
                                                 <dd class="st">{{arrayDatosPersonal.sitnombre}} - {{arrayDatosPersonal.subsitnombre}} - {{arrayDatosPersonal.detsitnombre}}</dd>
                                             </dl>
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <dl>
+                                                <dt class="st">PROFESIÓN LIBRE</dt>
+                                                <template v-for="item in arrayDatosPersonalProfesion" >
+                                                    <dd class="st">- {{item.prof}}</dd>
+                                                </template>
+                                            </dl>
+                                        </div>
                                     </div>
+
+                                    <!-- <div class="row p-2 bd-highlight">
+                                        
+                                    </div> -->
 
                                     <div class="row p-2 bd-highlight justify-content-center">
                                         <div class="col-md-4">                                            
-                                            <button v-if="$auth.can('report-ordest')" type="button" class="btn btn-secondary btn-sm btn-block" @click="abrirOGD()">
+                                            <button v-if="$auth.can('report-ordest')" type="button" class="btn btn-secondary btn-sm btn-block" @click="reporteOGD()">
                                                 <i class="far fa-file-alt" aria-hidden="true">  Orden de Destinos</i>
                                             </button> &nbsp; 
                                         </div>
@@ -102,8 +120,6 @@
                                         </div>
                                     </div>
 
-                                    
-
                                 </div>
                                 
                             </div>
@@ -113,12 +129,6 @@
                 </div>
 
             <div class="card card-primary card-outline">
-              <!-- <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-globe-americas"></i>
-                  <strong>DESTINOS</strong>
-                </h3>
-              </div> -->
               <div class="card-body">
                 <div class="table-wrapper-scroll-y my-custom-scrollbar" id="myTable" style="font-size: 16px;">
                 <template v-if="arrayPersonalDestinos.length">
@@ -145,30 +155,13 @@
                                 <td v-text="personalDestinos.desc_dn4"></td> 
                                 <td v-text="personalDestinos.cargo"></td> 
                                 <td style="text-align:center">{{ arrayPersonalDestinos2.find(function(el) { return el.idpersonal_destinos == personalDestinos.idpersonal_destinos; } ).cargo2 }}</td>                
-                                <!-- moment("D/MM/YYYY") cambiar formato de fecha -->
                                 <td style="text-align:center;">{{personalDestinos.fechadestino | moment("D/MM/YYYY")}}</td>
-                                
-                                <!-- <td>
-                                <div v-if="personalDestinos.estado == 1">
-                                    <center><span class="badge badge-success">Actual</span></center>
-                                </div>
-                                <div v-else>
-                                   <center><span class="badge badge-danger">Anterior</span></center>
-                                </div>
-                                
-                                </td>   -->
                                 <td style="width:100px; text-align:center">
                                     <button v-if="$auth.can('edit-perdest')" type="button" class="btn btn-warning btn-sm" @click="abrirEditar(personalDestinos,arrayDatosPersonal)">
                                         <i class="fas fa-edit"></i>
                                     </button> &nbsp;
-                                    <!-- <template v-if="personalDestinos.estado==0">
-                                        <button v-if="$auth.can('delete-perdest')" type="button" class="btn btn-danger btn-sm" @click="desactivarDestino(personalDestinos)" >
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                    </template> -->
                                 </td>                         
                             </tr>
-                            
                         </tbody>
                     </table>
                 </template>
@@ -550,6 +543,7 @@ export default {
             arrayPersonalDestinos2 : [],
             arrayDatosPersonal : [],
             arrayGrados : [],
+            arrayDatosPersonalProfesion : [],
 
             cmdte : '',
             cmdteJefe : '',
@@ -730,8 +724,10 @@ export default {
             per_codigo : per_codigo,
           })
           .then(function (response) {
-            
-            me.arrayDatosPersonal = response.data.personal_datos
+            console.log(response);
+            me.arrayDatosPersonal = response.data.personal_datos;
+            me.arrayDatosPersonalProfesion = response.data.profesiones;
+
           })
           .catch(function (error) {
             // handle error
@@ -1119,18 +1115,18 @@ export default {
                         .put("/editarDestino", {
                     //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
                         idPersonalDestino : me.idPersonalDestino,
-                        perdest_codigocambio : me.per_codigo,
-                        perdest_nro_doc : me.perdest_nro_docA,
-                        perdest_tipo_doc : me.perdest_tipo_docA,
+                        // perdest_codigocambio : me.per_codigo,
+                        // perdest_nro_doc : me.perdest_nro_docA,
+                        // perdest_tipo_doc : me.perdest_tipo_docA,
                         perdest_gra_doc : me.perdest_gradoA,
-                        perdest_fechadestino : me.perdest_fechadestinoA,
+                        // perdest_fechadestino : me.perdest_fechadestinoA,
                         perdest_destn1_codigo : me.perdest_destn1_codigoA,
                         perdest_destn2_codigo : me.perdest_destn2_codigoA,
                         perdest_destn3_codigo : me.perdest_destn3_codigoA,
                         perdest_destn4_codigo : me.perdest_destn4_codigoA,
                         perdest_cargo1 : me.perdest_cargo1A,
                         perdest_cargo2 : me.perdest_cargo2A,
-                        promocion : me.perdest_promo,
+                        // promocion : me.perdest_promo,
                         perdest_observaciones : me.perdest_observacionesA,
                     })
                     .then(function (response) {
@@ -1266,13 +1262,13 @@ export default {
             });
         },
 
-        reporteOGD(cmdteFAB,cmdteFFAA,minDEF,presidente){
+        reporteOGD(){
             this.$v.$reset()
             // if(!this.$v.$invalid){
             // window.open('http://192.168.3.77/ordenDestinos');
             // window.open('http://127.0.0.1/ordenDestinos');
             // window.open('http://sipefab.fab.bo/ordenDestinos?cmdtefab='+cmdteFAB+'&cmdteffaa='+cmdteFFAA+'&mindef='+minDEF+'&presidente='+presidente);
-            window.open('http://127.0.0.1:8000/ordenDestinos?cmdtefab='+cmdteFAB+'&cmdteffaa='+cmdteFFAA+'&mindef='+minDEF+'&presidente='+presidente);
+            window.open('http://127.0.0.1:8000/ordenDestinos');
             // }
             // else{
             //     this.$v.$touch();

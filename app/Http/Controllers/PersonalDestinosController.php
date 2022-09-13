@@ -18,13 +18,13 @@ class PersonalDestinosController extends Controller
         $per_codigo = $request->per_codigo;
 
         if($per_codigo==''){
-            $personal_destinos = DB::table("personal_destinos")
+            $personal_destinos = DB::connection('pgsql')->table("personal_destinos")
             ->orderBy('personal_destinos.id','desc')
             ->paginate(10);     
         }
         else
         {
-            $personal_destinos = DB::table("personal_destinos")
+            $personal_destinos = DB::connection('pgsql')->table("personal_destinos")
             ->join('personals','personal_destinos.per_codigo','=','personals.per_codigo')
             ->join('nivel1_destinos','personal_destinos.d1_cod','=','nivel1_destinos.id')
             ->join('nivel2_destinos','personal_destinos.d2_cod','=','nivel2_destinos.id')
@@ -69,7 +69,7 @@ class PersonalDestinosController extends Controller
             ->orderBy('personal_destinos.fecha_destino','desc')
             ->paginate(10);
 
-            $personal_destinos2 = DB::table("personal_destinos")
+            $personal_destinos2 = DB::connection('pgsql')->table("personal_destinos")
             ->join('personals','personal_destinos.per_codigo','=','personals.per_codigo')
             ->join('nivel1_destinos','personal_destinos.d1_cod','=','nivel1_destinos.id')
             ->join('nivel2_destinos','personal_destinos.d2_cod','=','nivel2_destinos.id')
@@ -107,7 +107,7 @@ class PersonalDestinosController extends Controller
             ->orderBy('personal_destinos.fecha_destino','desc')
             ->get();
 
-            $personal_destinos_frontera = DB::table("personal_destinos")
+            $personal_destinos_frontera = DB::connection('pgsql')->table("personal_destinos")
             ->join('personals','personal_destinos.per_codigo','=','personals.per_codigo')
             ->join('nivel1_destinos','personal_destinos.d1_cod','=','nivel1_destinos.id')
             ->join('nivel2_destinos','personal_destinos.d2_cod','=','nivel2_destinos.id')
@@ -238,127 +238,133 @@ class PersonalDestinosController extends Controller
     public function update(Request $request)
     {
         // PARA DEFINIR EL ESTADO
-        $fecha_max_update = PersonalDestinos::
-        where('per_codigo', $request->perdest_codigocambio)
-        ->where('flag',1)
-        ->max('fecha_destino');
+        // $fecha_max_update = PersonalDestinos::
+        // where('per_codigo', $request->perdest_codigocambio)
+        // ->where('flag',1)
+        // ->max('fecha_destino');
 
-        $reg_estado_1 = PersonalDestinos::
-            where('per_codigo', $request->perdest_codigocambio)
-            ->where('fecha_destino', $fecha_max_update)
-            ->where('flag',1)
-            ->first();
+        // $reg_estado_1 = PersonalDestinos::
+        //     where('per_codigo', $request->perdest_codigocambio)
+        //     ->where('fecha_destino', $fecha_max_update)
+        //     ->where('flag',1)
+        //     ->first();
 
-        $fecha_sub_max = PersonalDestinos::
-            where('per_codigo', $request->perdest_codigocambio)
-            ->where('estado', 0)
-            ->where('flag',1)
-            ->max('fecha_destino');
+        // $fecha_sub_max = PersonalDestinos::
+        //     where('per_codigo', $request->perdest_codigocambio)
+        //     ->where('estado', 0)
+        //     ->where('flag',1)
+        //     ->max('fecha_destino');
 
-        if ($request->perdest_fechadestino >= $fecha_max_update)
-            {
-                $perdest_estado = '1';
+        // if ($request->perdest_fechadestino >= $fecha_max_update)
+        //     {
+        //         $perdest_estado = '1';
 
-                $excluir = PersonalDestinos::
-                where('per_codigo', $request->perdest_codigocambio)
-                ->whereNotIn('fecha_destino', [$request->perdest_fechadestino])
-                ->update(['estado' => 0]);
+        //         $excluir = PersonalDestinos::
+        //         where('per_codigo', $request->perdest_codigocambio)
+        //         ->whereNotIn('fecha_destino', [$request->perdest_fechadestino])
+        //         ->update(['estado' => 0]);
 
-                $excluir_cargo = PersonalCargo::
-                where('per_codigo', $request->perdest_codigocambio)
-                ->whereNotIn('fechadest', [$request->perdest_fechadestino])
-                ->update(['estado' => 0]);
+        //         $excluir_cargo = PersonalCargo::
+        //         where('per_codigo', $request->perdest_codigocambio)
+        //         ->whereNotIn('fechadest', [$request->perdest_fechadestino])
+        //         ->update(['estado' => 0]);
 
                 
-            }
-        else
-            {
-                if ($reg_estado_1->id == $request->idPersonalDestino ){
-                    if ($request->perdest_fechadestino >= $fecha_sub_max){
-                        $perdest_estado = '1';
+        //     }
+        // else
+        //     {
+        //         if ($reg_estado_1->id == $request->idPersonalDestino ){
+        //             if ($request->perdest_fechadestino >= $fecha_sub_max){
+        //                 $perdest_estado = '1';
 
-                        $excluir = PersonalDestinos::
-                        where('per_codigo', $request->perdest_codigocambio)
-                        ->whereNotIn('fecha_destino', [$request->perdest_fechadestino])
-                        ->update(['estado' => 0]);
+        //                 $excluir = PersonalDestinos::
+        //                 where('per_codigo', $request->perdest_codigocambio)
+        //                 ->whereNotIn('fecha_destino', [$request->perdest_fechadestino])
+        //                 ->update(['estado' => 0]);
 
-                        $excluir_cargo = PersonalCargo::
-                        where('per_codigo', $request->perdest_codigocambio)
-                        ->whereNotIn('fechadest', [$request->perdest_fechadestino])
-                        ->update(['estado' => 0]);
-                    }
-                    else{
+        //                 $excluir_cargo = PersonalCargo::
+        //                 where('per_codigo', $request->perdest_codigocambio)
+        //                 ->whereNotIn('fechadest', [$request->perdest_fechadestino])
+        //                 ->update(['estado' => 0]);
+        //             }
+        //             else{
 
-                        // $perdest_estado = '0';
+        //                 // $perdest_estado = '0';
 
-                        $excluir = PersonalDestinos::
-                        where('per_codigo', $request->perdest_codigocambio)
-                        ->where('fecha_destino', $fecha_sub_max)
-                        ->where('flag',1)
-                        ->update(['estado' => 1]);
+        //                 $excluir = PersonalDestinos::
+        //                 where('per_codigo', $request->perdest_codigocambio)
+        //                 ->where('fecha_destino', $fecha_sub_max)
+        //                 ->where('flag',1)
+        //                 ->update(['estado' => 1]);
 
-                        $excluir_cargo = PersonalCargo::
-                        where('per_codigo', $request->perdest_codigocambio)
-                        ->where('fechadest', $fecha_sub_max)
-                        ->where('flag',1)
-                        ->update(['estado' => 1]);
+        //                 $excluir_cargo = PersonalCargo::
+        //                 where('per_codigo', $request->perdest_codigocambio)
+        //                 ->where('fechadest', $fecha_sub_max)
+        //                 ->where('flag',1)
+        //                 ->update(['estado' => 1]);
 
-                        $perdest_estado = '0';
+        //                 $perdest_estado = '0';
                         
-                    }
-                }
-                else{
-                    $mayor_dest = PersonalDestinos::
-                    where('per_codigo', $request->perdest_codigocambio)
-                    ->where('fecha_destino', $fecha_max_update)
-                    ->where('flag',1)
-                    ->update(['estado' => 1]);
-                    $perdest_estado = '0';
-                }
-            }
+        //             }
+        //         }
+        //         else{
+        //             $mayor_dest = PersonalDestinos::
+        //             where('per_codigo', $request->perdest_codigocambio)
+        //             ->where('fecha_destino', $fecha_max_update)
+        //             ->where('flag',1)
+        //             ->update(['estado' => 1]);
+        //             $perdest_estado = '0';
+        //         }
+        //     }
         //FIN DEFINIR ESTADO
 
-        $personal_destinos = PersonalDestinos::where('id',$request->idPersonalDestino)
-                    ->first();
-        $personal_destinos -> update([
-            'per_codigo' => $request->perdest_codigocambio,
-            'nro_doc' => $request->perdest_nro_doc,
-            'tipo_doc' => $request->perdest_tipo_doc,
-            'fecha_destino' => $request->perdest_fechadestino,
+        $personal_destinos = DB::connection('pgsql')->table('personal_destinos')->where('id',$request->idPersonalDestino)
+                    //  ->first()
+                    ->limit(1)
+        // $personal_destinos
+        ->update([
+            // 'per_codigo' => $request->perdest_codigocambio,
+            // 'nro_doc' => $request->perdest_nro_doc,
+            // 'tipo_doc' => $request->perdest_tipo_doc,
+            // 'fecha_destino' => $request->perdest_fechadestino,
             'gra_cod' => $request->perdest_gra_doc,
             'd1_cod' => $request->perdest_destn1_codigo,
             'd2_cod' => $request->perdest_destn2_codigo,
             'd3_cod' => $request->perdest_destn3_codigo,
             'd4_cod' => $request->perdest_destn4_codigo,
-            'promocion' => $request->promocion,
-            'estado' => $perdest_estado,
+            // 'promocion' => $request->promocion,
+            // 'estado' => $perdest_estado,
             'observacion' => $request->perdest_observaciones,
             'sysuser' => Auth::user()->id
         ]);
 
-        $personal_cargo1 = PersonalCargo::where('dest_cod',$request->idPersonalDestino)
+        $personal_cargo1 = DB::connection('pgsql')->table('personal_cargos')->where('dest_cod',$request->idPersonalDestino)
                         ->where('nivel_cargo','1')
-                        ->first();
-        $personal_cargo1 -> update([
+                        // ->first()
+                        ->limit(1)
+        // $personal_cargo1
+        ->update([
             'car_cod' => $request->perdest_cargo1,
-            'fechadest' => $request->perdest_fechadestino,
+            // 'fechadest' => $request->perdest_fechadestino,
             'observacion' => $request->perdest_observaciones,
-            'estado' => $perdest_estado,
+            // 'estado' => $perdest_estado,
             'sysuser' => Auth::user()->id,
         ]);
 
-        $personal_cargo2 = PersonalCargo::where('dest_cod',$request->idPersonalDestino)
+        $personal_cargo2 = DB::connection('pgsql')->table('personal_cargos')->where('dest_cod',$request->idPersonalDestino)
                         ->where('nivel_cargo','2')
-                        ->first();
-        $personal_cargo2 -> update([
+                        //  ->first()
+                        ->limit(1)
+        // $personal_cargo2
+        ->update([
             'car_cod' => $request->perdest_cargo2,
-            'fechadest' => $request->perdest_fechadestino,
+            // 'fechadest' => $request->perdest_fechadestino,
             'observacion' => $request->perdest_observaciones,
-            'estado' => $perdest_estado,
+            // 'estado' => $perdest_estado,
             'sysuser' => Auth::user()->id,
         ]);
 
-        return response()->json([$personal_destinos,$personal_cargo1,$personal_cargo2,$fecha_max_update,$fecha_sub_max]);
+        return response()->json([$personal_destinos,$personal_cargo1,$personal_cargo2]);
         
     }
 

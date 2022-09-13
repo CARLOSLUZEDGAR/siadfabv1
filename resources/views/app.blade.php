@@ -113,7 +113,7 @@
         <App ruta="{{route('basepath')}}"></App>
     </div>
     <footer class="main-footer">
-        <strong>Copyright &copy; 2021 "Dirección General de Tecnologías de la Información y Comunicaciones"</strong> 
+        <strong>Copyright &copy; 2022 "Dirección General de Tecnologías de la Información y Comunicaciones"</strong> 
         <br> 
         Todos los derechos reservados. 
         <div class="float-right d-none d-sm-inline-block">

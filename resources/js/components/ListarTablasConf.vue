@@ -139,7 +139,7 @@ export default {
                           "Se migro correctamente las tablas personal_destinos", //TEXTO DE MENSAJE
                           "success" // TIPO DE MODAL (success, warnning, error, info)
                       );
-                      me.atras();
+                      // me.atras();
                   } else {
                       swal.fire(
                           "Error", //TITULO
@@ -190,7 +190,7 @@ export default {
                           "Se migro correctamente las tablas personal_escalafones", //TEXTO DE MENSAJE
                           "success" // TIPO DE MODAL (success, warnning, error, info)
                       );
-                      me.atras();
+                      // me.atras();
                   } else {
                       swal.fire(
                           "Error", //TITULO
@@ -241,7 +241,7 @@ export default {
                           "Se migro correctamente las tablas personal_destinos y personal_cargos", //TEXTO DE MENSAJE
                           "success" // TIPO DE MODAL (success, warnning, error, info)
                       );
-                      me.atras();
+                      // me.atras();
                   } else {
                       swal.fire(
                           "Error", //TITULO
@@ -292,7 +292,7 @@ export default {
                           "Se migro correctamente las tablas personal_destinos y personal_cargos", //TEXTO DE MENSAJE
                           "success" // TIPO DE MODAL (success, warnning, error, info)
                       );
-                      me.atras();
+                      // me.atras();
                   } else {
                       swal.fire(
                           "Error", //TITULO
@@ -343,7 +343,7 @@ export default {
                           "Se migro correctamente las tablas personal_destinos y personal_cargos", //TEXTO DE MENSAJE
                           "success" // TIPO DE MODAL (success, warnning, error, info)
                       );
-                      me.atras();
+                      // me.atras();
                   } else {
                       swal.fire(
                           "Error", //TITULO

@@ -141,7 +141,7 @@ class createindex extends bookmark
     public function Footer()
     {
         global $pagina;
-        if($this->PageNo() >= 2){
+        // if($this->PageNo() >= 2){
             $this->SetFont('Arial','B',12);
             $this->SetY(-15);
             $this->SetX(20);
@@ -153,6 +153,6 @@ class createindex extends bookmark
             // $this->Cell(176,5,$this->PageNo().' '.'-'.' '.'{nb}',0,0,'C');
             // $this->Cell(176,5,$page.' '.'-'.' '.$pagina,0,0,'C');
             $this->Cell(176,5,$this->GroupPageNo().' - '.$this->PageGroupAlias(),0,0,'C');
-        }
+        // }
     }
 }
