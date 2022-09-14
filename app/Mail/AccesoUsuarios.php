@@ -31,6 +31,6 @@ class AccesoUsuarios extends Mailable
      */
     public function build()
     {
-        return $this->subject('Datos usuario SIPEFAB')->view('correos.nuevoUsuario');
+        return $this->subject('Datos usuario SIADFAB')->view('correos.nuevoUsuario');
     }
 }

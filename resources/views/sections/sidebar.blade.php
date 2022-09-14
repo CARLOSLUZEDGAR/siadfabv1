@@ -180,13 +180,13 @@
                 </li>
                 @endcan
 
-
-                <li class="nav-item">{{-- AYUDAS --}}
+                {{-- AYUDAS --}}
+                {{-- <li class="nav-item">
                     <router-link class="nav-link" to='/ayuda'>
                       <i class="nav-icon fas fa-info-circle"></i>
                       <p>AYUDAS</p>
                     </router-link>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">{{-- ACERCA DE --}}
                     <router-link class="nav-link" to='/acercade'>

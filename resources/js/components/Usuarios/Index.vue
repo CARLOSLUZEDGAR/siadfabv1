@@ -441,6 +441,8 @@ export default {
              */
             Apersonal: [],
             Ausuarios: [],
+            Ausuarioslocal: [],
+            Ausuariospersonal: [],
             Aroles: [],
             datos: [],
             Edatos: [],
@@ -737,8 +739,10 @@ export default {
                 page: page
             })
             .then(function (response) {
-                
+                console.log(response);
                 me.Ausuarios = response.data.usuarios.data;
+                // me.Ausuarioslocal = response.data.users_local.data;
+                // me.Ausuariospersonal = response.data.users_personal.data;
                 me.pagination = response.data.pagination;
             })
             .catch(function (error) {

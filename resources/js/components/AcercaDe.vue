@@ -20,18 +20,18 @@
                                 
                                 <div class="col-md-12">
                                     <div class="col-md-12 title-credit my-2">
-                                        GESTIÓN DE MANDO 2021
+                                        GESTIÓN DE MANDO 2022
                                     </div>
                                     <div class="col-md-12 text-center">
-                                            Gral. Div. Aé. Marcelo Juan Heredia Cuba
+                                            Gral. Fza. Aé. Marcelo Juan Heredia Cuba
                                         <div class="cargo mb-1">
                                             COMANDANTE GENERAL DE LA FUERZA AÉREA
                                         </div>                       
-                                            Cnl. DAEN. Marcelo Javier Zegarra Gutierrez
+                                            Gral. Brig. Aé. Marcelo Javier Zegarra Gutierrez
                                         <div class="cargo  mb-1">
                                             JEFE DE ESTADO MAYOR GENERAL DE LA FAB
                                         </div>
-                                            Cnl. DAEN. Robert Raul Vargas Quenallata
+                                            Cnl. DAEN. Carlos Hugo Canido Suarez
                                         <div class="cargo  mb-1">
                                             JEFE DEL DEPARTAMENTO VI CIENCIA Y TECNOLOGIA - EMGFAB
                                         </div>
