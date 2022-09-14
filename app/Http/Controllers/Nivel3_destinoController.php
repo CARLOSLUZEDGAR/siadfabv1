@@ -172,7 +172,7 @@ class Nivel3_destinoController extends Controller
 
     public function selectDestinosNivel3(Request $request){
         //if (!$request->ajax()) return redirect('/');
-        $destino3 = DB::table('nivel3_destinos')
+        $destino3 = DB::connection('pgsql_server')->table('nivel3_destinos')
         ->where('estado','=','1') //filtramos a todas las categorias que estan activas
         ->select('id','descripcion')
         ->orderBy('descripcion','asc')->get();//seleecionamos los campos id, nombre  con get() se obtiene el listado
@@ -183,7 +183,7 @@ class Nivel3_destinoController extends Controller
     public function selectbuscarDestinosNivel3(Request $request){
         //if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
-        $destino3 = DB::table('nivel3_destinos')
+        $destino3 = DB::connection('pgsql_server')->table('nivel3_destinos')
         ->where('d2_cod','=',$buscar)
         ->where('estado','=','1')
         ->select('id','descripcion')

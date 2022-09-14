@@ -150,7 +150,7 @@ class Nivel4_destinoController extends Controller
     public function selectDestinosNivel4(Request $request)
     {
         // if(!$request->ajax()) return view('/');
-         $destinos_nivel4 = DB::table('nivel4_destinos')
+         $destinos_nivel4 = DB::connection('pgsql_server')->table('nivel4_destinos')
          ->where('estado','=','1')
          ->select('id','descripcion')
          ->orderBy('descripcion','asc')
@@ -164,7 +164,7 @@ class Nivel4_destinoController extends Controller
 
         $buscar = $request->buscar;
         // if (!$request->ajax()) return redirect('/');
-        $destinos_nivel4 = DB::table('nivel4_destinos')      
+        $destinos_nivel4 = DB::connection('pgsql_server')->table('nivel4_destinos')      
         ->where('d3_cod','=',$buscar)
         ->where('estado','=','1')
         ->select('id','descripcion')

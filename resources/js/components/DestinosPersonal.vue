@@ -724,7 +724,7 @@ export default {
             per_codigo : per_codigo,
           })
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             me.arrayDatosPersonal = response.data.personal_datos;
             me.arrayDatosPersonalProfesion = response.data.profesiones;
 
@@ -743,7 +743,7 @@ export default {
                 division : me.arrayDatosPersonal.division
             })
             .then(function (response) {
-                console.log(response)
+                // console.log(response)
                 me.arrayGrados = response.data.listar_grado;
                 // me.pagination = response.data.pagination;
             })

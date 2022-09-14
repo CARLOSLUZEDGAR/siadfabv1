@@ -113,7 +113,7 @@ class CargoController extends Controller
 
         if ($filtro==1 || $filtro==2 || $filtro==3)
             {
-                $cargos = DB::table('cargos')
+                $cargos = DB::connection('pgsql_server')->table('cargos')
                 ->select('id','descripcion')
                 ->where('asignacion','like', '%' . 'O'.  '%')
                 ->where('estado',1)
@@ -123,7 +123,7 @@ class CargoController extends Controller
             }
             else if ($filtro==4 || $filtro==5 || $filtro==6)
             {
-                $cargos = DB::table('cargos')
+                $cargos = DB::connection('pgsql_server')->table('cargos')
                 ->select('id','descripcion')
                 ->where('asignacion','like', '%' . 'S' .  '%')
                 ->where('estado',1)
@@ -133,7 +133,7 @@ class CargoController extends Controller
             }
             else if ($filtro==21)
             {
-                $cargos = DB::table('cargos')
+                $cargos = DB::connection('pgsql_server')->table('cargos')
                 ->select('id','descripcion')
                 ->where('asignacion','like', '%' . 'M' .  '%')
                 ->where('estado',1)
@@ -143,7 +143,7 @@ class CargoController extends Controller
             }
             else if ($filtro==7 || $filtro==8 || $filtro==9 || $filtro==10 || $filtro==11 || $filtro==12)
             {
-                $cargos = DB::table('cargos')
+                $cargos = DB::connection('pgsql_server')->table('cargos')
                 ->select('id','descripcion')
                 ->where('asignacion','like', '%' . 'C'.  '%')
                 ->where('estado',1)

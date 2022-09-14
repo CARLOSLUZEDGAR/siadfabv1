@@ -84,7 +84,7 @@ class Nivel1_destinoController extends Controller
 
     public function SelectNivel1Destino(Request $request){
         //if (!$request->ajax()) return redirect('/');
-        $destino1 = DB::table('nivel1_destinos')
+        $destino1 = DB::connection('pgsql_server')->table('nivel1_destinos')
         ->where('estado','=','1') //filtramos a todas las categorias que estan activas
         ->select('id','descripcion')
         ->orderBy('descripcion','asc')->get();//seleecionamos los campos id, nombre  con get() se obtiene el listado
