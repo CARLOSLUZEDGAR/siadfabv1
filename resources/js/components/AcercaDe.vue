@@ -56,7 +56,7 @@
                                                 <td class="space content2">Cnl. DAEN. Primo Abel Butron Machicado</td>
                                             </tr>
                                             <tr>
-                                                <td class="cargo2 space mb-1" rowspan="8">DEVELOPERS</td>
+                                                <td class="cargo2 space mb-1" rowspan="9">DEVELOPERS</td>
                                                 <td class="space content2">Tte. DIM. Christian Cruz Felipez</td>
                                             </tr>
                                             <tr>
@@ -70,6 +70,9 @@
                                             </tr>
                                             <tr>
                                                 <td class="space content2">Sgto. 1ro. Téc. Juan Manuel Quisbert Antonio</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="space content2">Sgto. 2do. Téc. Maria Jimena Tarqui Flores</td>
                                             </tr>
                                             <tr>
                                                 <td class="space content2">Prof. III. Marcelo Rodrigo Mattos Fernandez</td>

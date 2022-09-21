@@ -41,10 +41,10 @@ class RoleController extends Controller
 
     public function ListarRole2(Request $request)
     {
-        $roles = DB::table('model_has_roles as rm')
+        $roles = DB::connection('pgsql')->table('model_has_roles as rm')
             ->join('roles as r','rm.role_id', 'r.id')
             ->select('r.id')
-            ->where('rm.model_id', $request->per_cod)
+            ->where('rm.model_id', $request->iduser)
             ->get();
         $data = [];
 
@@ -52,7 +52,11 @@ class RoleController extends Controller
             $data[$key] = $value->id; 
         }
 
-        $roles = Role::select('name','id')
+        // $roles = Role::select('name','id')
+        //                 ->whereNotIn('id', $data)
+        //                 ->orderBy('name')
+        //                 ->get();
+        $roles = DB::connection('pgsql')->table('roles')->select('name','id')
                         ->whereNotIn('id', $data)
                         ->orderBy('name')
                         ->get();
@@ -63,10 +67,10 @@ class RoleController extends Controller
 
     public function ListarRoleUsuario(Request $request)
     {
-        $roles = DB::table('model_has_roles as rm')
+        $roles = DB::connection('pgsql')->table('model_has_roles as rm')
         ->join('roles as r','rm.role_id', 'r.id')
         ->select('r.id','r.name')
-        ->where('rm.model_id', $request->per_cod)
+        ->where('rm.model_id', $request->iduser)
         ->get();
 
         return response()->json($roles);
@@ -151,16 +155,15 @@ class RoleController extends Controller
 
     public function AgregarRol(Request $request)
     {
-        $user = User::find($request->id);
-        $user->assignRole($request->rol);
+        // $user = DB::connection('pgsql')->table('users')->find($request->id);
+        // $user->assignRole($request->rol);
         return response()->json($request);
 ;    }
 
     public function QuitarRol(Request $request)
     {
-        $user = User::find($request->id);
+        $user = DB::connection('pgsql')->table('users')->find($request->id);
         $user->removeRole($request->rol);
         return response()->json($request);
-        # code...
     }
 }

@@ -113,7 +113,8 @@
                                             <i class="fas fa-check"></i>
                                         </button>
                                     </td>
-                                    <td>{{u.grado}} {{u.complemento}} {{u.nombre}} {{u.paterno}} {{u.materno}}</td>
+                                    <!-- <td>{{u.grado}} {{u.complemento}} {{u.nombre}} {{u.paterno}} {{u.materno}}</td> -->
+                                    <td>{{u.grado}}{{u.estudio}} {{u.nombre}} {{u.paterno}} {{u.materno}}</td>
                                     <td class="text-center">{{u.cm}}</td>
                                     <td class="text-center" style="vertical-align: middle;">
                                         <div v-if="u.estado === 1">
@@ -371,7 +372,7 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button type="button" class="btn btn-primary btn-block" @click="AgregarRol()">ASIGNAR ROL</button>
+                            <button type="button" class="btn btn-primary btn-block" @click="AgregarRol(role.id,role.name)">ASIGNAR ROL</button>
                         </div>
                     </div>
                     <br>
@@ -642,7 +643,7 @@ export default {
             let me = this;
             axios
             .post("/listarol2", {
-                per_cod: id
+                iduser: id
             })
             .then(function (response) {
                 //Respuesta de la peticion
@@ -660,7 +661,7 @@ export default {
             
             axios
             .post("/listarolus", {
-                per_cod: id
+                iduser: id
             })
             .then(function (response) {
                 //Respuesta de la peticion
@@ -696,7 +697,7 @@ export default {
         },
         AgregarRol(){
             let me = this;
-            if (me.role == '') {
+            if (me.role == null || me.role == 0) {
                 swal.fire(
                     "Precaución", //TITULO
                     "Debe seleccionar un rol para agregar.", //TEXTO DE MENSAJE
@@ -710,6 +711,7 @@ export default {
                     rol: me.role.name
                 })
                 .then(function (response) {
+                    console.log(response);
                     swal.fire(
                         "Aceptado", //TITULO
                         "Se añadio correctamente el nuevo rol.", //TEXTO DE MENSAJE

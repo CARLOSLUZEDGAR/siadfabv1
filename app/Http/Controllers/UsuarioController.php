@@ -82,193 +82,49 @@ class UsuarioController extends Controller
     }
     public function ListarUsuarios(Request $request)
     {
-        // $conexion_server = DB::connection('pgsql_server');
-        // $conexion_local = DB::connection('pgsql');
-
-        // $buscar = $request->buscar;
-        // if ($buscar == '') {
-        //     // $users_percod = DB::connection('pgsql')->table('users')
-        //     //                 ->select('percod')
-        //     //                 ->where('estado',1)
-        //     //                 ->get();
-
-        //     // $arrayPerCodigo = json_decode($users_percod,true);
-
-        //     // $users_local = DB::connection('pgsql')->table('users as u')
-        //     //                 ->join('model_has_roles as mr', 'u.id','mr.model_id')
-        //     //                 ->join('roles as r','mr.role_id','r.id')
-        //     //                 ->select('u.id','u.percod','u.nick','u.estado','r.name as role')
-        //     //                 ->where('u.estado',1)
-        //     //                 ->orderBy('u.percod')
-        //     //                 ->paginate(10); 
-            
-
-        //     // $users_personal = DB::connection('pgsql_server')->table('personals as p')
-        //     //         ->join('personal_escalafones as pe','p.per_codigo','pe.per_codigo')
-        //     //         ->join('grados as g','pe.gra_cod','g.id')
-        //     //         ->join('personal_estudios as epe','p.per_codigo','epe.per_codigo')
-        //     //         ->join('estudios as e','epe.est_cod','e.id')
-        //     //         // ->join('model_has_roles as mr', 'u.id','mr.model_id')
-        //     //         // ->join('roles as r','mr.role_id','r.id')
-        //     //         ->select('p.per_nombre as nombre',
-        //     //                 'p.per_paterno as paterno','p.per_materno as materno',
-        //     //                 'p.per_cm as cm','g.abreviatura as grado',
-        //     //                 'e.abreviatura as complemento',
-        //     //                 // 'r.name as role'
-        //     //                 )
-        //     //         ->whereIn('p.per_codigo',$arrayPerCodigo)
-        //     //         ->where('pe.estado',1)
-        //     //         ->where('epe.estado',1)
-        //     //         ->orderBy('p.per_codigo')
-        //     //         ->paginate(10); 
-
-        //     // $union = DB::connection('pgsql_server')->table('personals as p')
-        //     //         ->join('personal_escalafones as pe','p.per_codigo','pe.per_codigo')
-        //     //         ->join('grados as g','pe.gra_cod','g.id')
-        //     //         ->join('personal_estudios as epe','p.per_codigo','epe.per_codigo')
-        //     //         ->join('estudios as e','epe.est_cod','e.id')
-        //     //         // ->join('model_has_roles as mr', 'u.id','mr.model_id')
-        //     //         // ->join('roles as r','mr.role_id','r.id')
-        //     //         ->select('p.per_nombre as nombre',
-        //     //                 'p.per_paterno as paterno','p.per_materno as materno',
-        //     //                 'p.per_cm as cm','g.abreviatura as grado',
-        //     //                 'e.abreviatura as complemento',
-        //     //                 // 'r.name as role'
-        //     //                 )
-        //     //         ->whereIn('p.per_codigo',$arrayPerCodigo)
-        //     //         ->where('pe.estado',1)
-        //     //         ->where('epe.estado',1)
-        //     //         ->orderBy('p.per_codigo')
-        //     //         ->union($users_local)
-        //     //         ->get();
-        //             // ->paginate(10); 
-
-        //     // $arrayUserLocal = json_decode($user_local,true);
-        //     // $usuarios = DB::connection('pgsql_server')->table('personals as p')
-        //     //         ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
-        //     //         ->join('grados as g','pe.gra_cod','g.id')
-        //     //         ->join('personal_estudios as epe','u.percod','epe.per_codigo')
-        //     //         ->join('estudios as e','epe.est_cod','e.id')
-        //     //         ->join('model_has_roles as mr', 'u.id','mr.model_id')
-        //     //         ->join('roles as r','mr.role_id','r.id')
-        //     //         ->select('u.id','u.nick','u.estado','p.per_nombre as nombre',
-        //     //                 'p.per_paterno as paterno','p.per_materno as materno',
-        //     //                 'p.per_cm as cm','g.abreviatura as grado',
-        //     //                 'e.abreviatura as complemento',
-        //     //                 'r.name as role'
-        //     //                 )
-        //     //         ->where('pe.estado',1)
-        //     //         ->where('epe.estado',1)
-        //     //         ->orderBy('u.id','desc')
-        //     //         ->paginate(10);
-            
-        //     $usuarios = DB::connection('pgsql')->table('users as u')
-        //     ->join($conexion_server.'personals as p','u.percod','p.per_codigo')
-        //     ->join($conexion_server.'personal_escalafones as pe','u.percod','pe.per_codigo')
-        //     ->join($conexion_server.'grados as g','pe.gra_cod','g.id')
-        //     ->join($conexion_server.'personal_estudios as epe','u.percod','epe.per_codigo')
-        //     ->join($conexion_server.'estudios as e','epe.est_cod','e.id')
-        //     ->join($conexion_local.'model_has_roles as mr', 'u.id','mr.model_id')
-        //     ->join($conexion_local.'roles as r','mr.role_id','r.id')
-        //     ->select('u.id','u.nick','u.estado','p.per_nombre as nombre',
-        //             'p.per_paterno as paterno','p.per_materno as materno',
-        //             'p.per_cm as cm','g.abreviatura as grado',
-        //             'e.abreviatura as complemento',
-        //             'r.name as role'
-        //             )
-        //     ->where($conexion_server.'pe.estado',1)
-        //     ->where($conexion_server.'epe.estado',1)
-        //     ->orderBy($conexion_local.'u.id','desc')
-        //     ->paginate(10);
-        // } else {
-        //     $usuarios = DB::table('users as u')
-        //     ->join('personals as p','u.percod','p.per_codigo')
-        //     ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
-        //     ->join('grados as g','pe.gra_cod','g.id')
-        //     ->join('personal_estudios as epe','u.percod','epe.per_codigo')
-        //     ->join('estudios as e','epe.est_cod','e.id')
-        //     ->join('model_has_roles as mr', 'u.id','mr.model_id')
-        //     ->join('roles as r','mr.role_id','r.id')
-        //     ->select('u.id','u.nick','u.estado','p.per_nombre as nombre','p.per_paterno as paterno',
-        //             'p.per_materno as materno','p.per_cm as cm','g.abreviatura as grado','e.abreviatura as complemento',
-        //             'r.name as role'
-        //             )
-        //     ->where(function($q) use ($buscar){
-        //         $q->where('p.per_paterno','LIKE','%'.$buscar.'%')
-        //         ->orWhere('p.per_cm','LIKE','%'.$buscar.'%')
-        //         ->orWhere('p.per_nombre','LIKE','%'.$buscar.'%')
-        //         ->orWhere('p.per_materno','LIKE','%'.$buscar.'%');
-        //     })
-        //     ->where('pe.estado',1)
-        //     ->where('epe.estado',1)
-        //     ->orderBy('u.id','desc')
-        //     ->paginate(10);
-            
-        // }
-        
-        // return response()->json([
-        //     'pagination' => [
-        //         'total'         => $usuarios->total(),
-        //         'current_page'  => $usuarios->currentPage(),
-        //         'per_page'      => $usuarios->perPage(),
-        //         'last_page'     => $usuarios->lastPage(),
-        //         'from'          => $usuarios->firstItem(),
-        //         'to'            => $usuarios->lastItem(),
-            
-        //     ],
-        //     // 'users_local'=>$users_local,'users_personal' => $users_personal
-        //     // 'union'=>$union
-        //     'usuarios' => $usuarios
-
-        // ]);       
-        // return response()->json(['usuarios'=>$user_local]);
-
-        //ORIGIN
-
         $buscar = $request->buscar;
         if ($buscar == '') {
-            $usuarios = DB::table('users as u')
-            ->join('personals as p','u.percod','p.per_codigo')
-            ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
-            ->join('grados as g','pe.gra_cod','g.id')
-            ->join('personal_estudios as epe','u.percod','epe.per_codigo')
-            ->join('estudios as e','epe.est_cod','e.id')
-            ->join('model_has_roles as mr', 'u.id','mr.model_id')
-            ->join('roles as r','mr.role_id','r.id')
-            ->select('u.id','u.nick','u.estado','p.per_nombre as nombre',
-                    'p.per_paterno as paterno','p.per_materno as materno',
-                    'p.per_cm as cm','g.abreviatura as grado',
-                    'e.abreviatura as complemento',
-                    'r.name as role'
-                    )
-            ->where('pe.estado',1)
-            ->where('epe.estado',1)
-            ->orderBy('u.id','desc')
-            ->paginate(10);
+            $usuarios = DB::connection('pgsql')->table('users as u')
+                        ->join('vista_personal as vp','u.percod','vp.per_codigo')
+                        ->join('model_has_roles as mr', 'u.id','mr.model_id')
+                        ->join('roles as r','mr.role_id','r.id')
+                        ->select('u.id',
+                                'u.nick',
+                                'u.estado',
+                                'vp.grado',
+                                'vp.estudio',
+                                'vp.paterno',
+                                'vp.materno',
+                                'vp.nombre',
+                                'vp.cm',
+                                'r.name as role'
+                                )
+                        ->orderBy('u.id')
+                        ->paginate(10);
         } else {
-            $usuarios = DB::table('users as u')
-            ->join('personals as p','u.percod','p.per_codigo')
-            ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
-            ->join('grados as g','pe.gra_cod','g.id')
-            ->join('personal_estudios as epe','u.percod','epe.per_codigo')
-            ->join('estudios as e','epe.est_cod','e.id')
-            ->join('model_has_roles as mr', 'u.id','mr.model_id')
-            ->join('roles as r','mr.role_id','r.id')
-            ->select('u.id','u.nick','u.estado','p.per_nombre as nombre','p.per_paterno as paterno',
-                    'p.per_materno as materno','p.per_cm as cm','g.abreviatura as grado','e.abreviatura as complemento',
-                    'r.name as role'
-                    )
+            $usuarios = DB::connection('pgsql')->table('users as u')
+                        ->join('vista_personal as vp','u.percod','vp.per_codigo')
+                        ->join('model_has_roles as mr', 'u.id','mr.model_id')
+                        ->join('roles as r','mr.role_id','r.id')
+                        ->select('u.id',
+                                'u.nick',
+                                'u.estado',
+                                'vp.grado',
+                                'vp.estudio',
+                                'vp.paterno',
+                                'vp.materno',
+                                'vp.nombre',
+                                'vp.cm',
+                                'r.name as role'
+                                )
             ->where(function($q) use ($buscar){
-                $q->where('p.per_paterno','LIKE','%'.$buscar.'%')
-                ->orWhere('p.per_cm','LIKE','%'.$buscar.'%')
-                ->orWhere('p.per_nombre','LIKE','%'.$buscar.'%')
-                ->orWhere('p.per_materno','LIKE','%'.$buscar.'%');
+                $q->where('vp.cm','LIKE','%'.$buscar.'%')
+                ->orWhere('vp.paterno','LIKE','%'.$buscar.'%')
+                ->orWhere('vp.materno','LIKE','%'.$buscar.'%')
+                ->orWhere('vp.nombre','LIKE','%'.$buscar.'%');
             })
-            ->where('pe.estado',1)
-            ->where('epe.estado',1)
-            ->orderBy('u.id','desc')
+            ->orderBy('u.id')
             ->paginate(10);
-            
         }
         
         return response()->json([
