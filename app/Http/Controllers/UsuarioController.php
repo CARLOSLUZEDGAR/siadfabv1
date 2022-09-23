@@ -43,6 +43,7 @@ class UsuarioController extends Controller
 
     public function CrearUsuario(Request $request)
     {
+<<<<<<< HEAD
         // Generador de Contraseña aleatoria
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -51,6 +52,16 @@ class UsuarioController extends Controller
             $randomString .= $characters[rand(0,$charactersLength - 1)];
         }
         // $randomString = 1;
+=======
+        $randomString = 1;
+        // GCODIGO PARA GENERAR ALEATORIAMENTE EL PASSWORD
+        // $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // $charactersLength = strlen($characters);
+        // $randomString = '';
+        // for ($i=0; $i < 10; $i++) {
+        //     $randomString .= $characters[rand(0,$charactersLength - 1)];
+        // }
+>>>>>>> bd615e18ff68c0da3238bd9ac1da1149a6933309
         
         $verificacion = User::where('email',$request->email)->exists();
         
@@ -69,9 +80,9 @@ class UsuarioController extends Controller
 
                 $user->assignRole($request->rol);
                 DB::commit();
-
-                Mail::to($request->email)
-                ->send(new AccesoUsuarios($request, $randomString));
+                // CODIGO PARA ENVIAR USUARIO Y PASSWORD POR EMAIL
+                // Mail::to($request->email)
+                // ->send(new AccesoUsuarios($request, $randomString));
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json(['code' => $verificacion, 'mensaje' => 'Ocurrio un error al momento de registra al usuario.','tipo' => 'error', 'titulo'=>'Error']);
