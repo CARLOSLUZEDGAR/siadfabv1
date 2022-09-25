@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-edit"></i>
-                            {{ datos.grado }} {{ datos.complemento }} {{ datos.nombre }} {{ datos.paterno }} {{ datos.materno }}
+                            {{ datos.grado }} {{ datos.estudio }} {{ datos.nombre }} {{ datos.paterno }} {{ datos.materno }}
                             </h3>
                         </div>
                         <div class="card-body">
@@ -69,7 +69,7 @@
                                             </div>
                                         </div>
                                         <!-- FILA 2 -->
-                                        <div class="row p-2 bd-highlight">  
+                                        <!-- <div class="row p-2 bd-highlight">  
                                             <div class="col-md-12">
                                                 <dl>
                                                     <dt class="st">Destino Actual</dt>
@@ -77,7 +77,7 @@
                                                 </dl>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                         <!-- FILA 3 -->
                                         <div class="row p-2 bd-highlight">  
                                             <div class="col-md-6">

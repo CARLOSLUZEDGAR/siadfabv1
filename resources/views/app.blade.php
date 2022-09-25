@@ -168,7 +168,7 @@
           //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           // },
           success: function(data){
-              var nombre = data.grado+data.complemento+' '+data.paterno;
+              var nombre = data.grado+data.estudio+' '+data.paterno;
               $('#nombre').text(nombre);
           },
           error: function(data){

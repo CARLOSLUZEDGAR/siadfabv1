@@ -11,6 +11,7 @@ class MigracionController extends Controller
 {
     public function migrarPersonalDestinos(Request $request)
     {   
+
         $gestion4 = date('Y');
         $gestion2 = date('y');
         $fecha = $gestion4.'-12-31';
@@ -46,7 +47,6 @@ class MigracionController extends Controller
                 'gra_cod' => $arrayUltimoDestino[$i]['gra_cod'],
                 'nro_doc' => $nroDoc,
                 'tipo_doc' => $doc,
-                // 'fecha_destino' => $arrayUltimoDestino[$i]['fecha_destino'],
                 'fecha_destino' => $fecha,
                 'finfechadestino' => $arrayUltimoDestino[$i]['finfechadestino'],
                 'promocion' => $arrayUltimoDestino[$i]['promocion'],
@@ -66,7 +66,6 @@ class MigracionController extends Controller
                 'dest_cod' => $arrayUltimoCargo[$j]['dest_cod'],
                 'car_cod' => $arrayUltimoCargo[$j]['car_cod'],
                 'nivel_cargo' => $arrayUltimoCargo[$j]['nivel_cargo'],
-                // 'fechadest' => $arrayUltimoCargo[$j]['fechadest'],
                 'fechadest' => $fecha,
                 'observacion' => $arrayUltimoCargo[$j]['observacion'],
                 'sysuser' => $arrayUltimoCargo[$j]['sysuser'],
@@ -76,8 +75,6 @@ class MigracionController extends Controller
                 'updated_at' => $fecha,
             ]);
         }
-        // return response()->json([$personal_destinos,$ultimo_destino,$ultimo_cargo]);
-        // return response()->json([$cantUltimoDestino,$arrayUltimoDestino]);
         return response()->json(['code' => 200]);
     }
 

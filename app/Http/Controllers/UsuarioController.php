@@ -15,26 +15,58 @@ class UsuarioController extends Controller
 {
     public function DatosUsuario()
     {
-        $usuario = DB::table('users as u')
-            ->join('personals as p','u.percod','p.per_codigo')
-            ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
-            ->join('grados as g','pe.gra_cod','g.id')
-            ->join('personal_estudios as epe','u.percod','epe.per_codigo')
-            ->join('estudios as e','epe.est_cod','e.id')
-            ->join('personal_situaciones as ps','p.per_codigo','ps.per_codigo')
-            ->join('subsituaciones as ss','ps.subsit_cod','ss.id')
-            ->join('personal_destinos as pd','p.per_codigo','pd.per_codigo')
-            ->join('nivel3_destinos as nd3','pd.d3_cod','nd3.id')
-            ->join('nivel2_destinos as nd2','pd.d2_cod','nd2.id')
-            ->select('u.id','u.nick','u.estado','u.email','p.per_nombre as nombre','p.per_paterno as paterno',
-                    'p.per_materno as materno','p.per_cm as cm','p.per_foto as foto',
-                    'g.abreviatura as grado','e.abreviatura as complemento',
-                    'p.per_cm as cm','p.per_ci as ci','p.per_expedido as expedido',
-                    'ss.nombre as situacion','nd2.descripcion as des2','nd3.descripcion as des3')
-            ->where('pe.estado',1)
-            ->where('epe.estado',1)
-            ->where('pd.estado',1)
-            ->where('ps.estado',1)
+        // $usuario = DB::table('users as u')
+        //     ->join('personals as p','u.percod','p.per_codigo')
+        //     ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
+        //     ->join('grados as g','pe.gra_cod','g.id')
+        //     ->join('personal_estudios as epe','u.percod','epe.per_codigo')
+        //     ->join('estudios as e','epe.est_cod','e.id')
+        //     ->join('personal_situaciones as ps','p.per_codigo','ps.per_codigo')
+        //     ->join('subsituaciones as ss','ps.subsit_cod','ss.id')
+        //     ->join('personal_destinos as pd','p.per_codigo','pd.per_codigo')
+        //     ->join('nivel3_destinos as nd3','pd.d3_cod','nd3.id')
+        //     ->join('nivel2_destinos as nd2','pd.d2_cod','nd2.id')
+        //     ->select('u.id','u.nick','u.estado','u.email','p.per_nombre as nombre','p.per_paterno as paterno',
+        //             'p.per_materno as materno','p.per_cm as cm','p.per_foto as foto',
+        //             'g.abreviatura as grado','e.abreviatura as complemento',
+        //             'p.per_cm as cm','p.per_ci as ci','p.per_expedido as expedido',
+        //             'ss.nombre as situacion','nd2.descripcion as des2','nd3.descripcion as des3')
+        //     ->where('pe.estado',1)
+        //     ->where('epe.estado',1)
+        //     ->where('pd.estado',1)
+        //     ->where('ps.estado',1)
+        //     ->where('u.id',Auth::user()->id)
+        //     ->first();
+        $usuario = DB::connection('pgsql')->table('users as u')
+            ->join('vista_personal as vp','u.percod','vp.per_codigo')
+            // ->join('personals as p','u.percod','p.per_codigo')
+            // ->join('personal_escalafones as pe','u.percod','pe.per_codigo')
+            // ->join('grados as g','pe.gra_cod','g.id')
+            // ->join('personal_estudios as epe','u.percod','epe.per_codigo')
+            // ->join('estudios as e','epe.est_cod','e.id')
+            // ->join('personal_situaciones as ps','p.per_codigo','ps.per_codigo')
+            // ->join('subsituaciones as ss','ps.subsit_cod','ss.id')
+            // ->join('personal_destinos as pd','p.per_codigo','pd.per_codigo')
+            // ->join('nivel3_destinos as nd3','pd.d3_cod','nd3.id')
+            // ->join('nivel2_destinos as nd2','pd.d2_cod','nd2.id')
+            ->select('u.id',
+                    'u.nick',
+                    'u.estado',
+                    'u.email',
+                    'vp.nombre',
+                    'vp.paterno',
+                    'vp.materno',
+                    'vp.cm',
+                    'vp.foto',
+                    'vp.grado',
+                    'vp.estudio',
+                    'vp.ci',
+                    'vp.expedido',
+                    'vp.situacion')
+            // ->where('pe.estado',1)
+            // ->where('epe.estado',1)
+            // ->where('pd.estado',1)
+            // ->where('ps.estado',1)
             ->where('u.id',Auth::user()->id)
             ->first();
         
@@ -43,7 +75,6 @@ class UsuarioController extends Controller
 
     public function CrearUsuario(Request $request)
     {
-<<<<<<< HEAD
         // Generador de Contraseña aleatoria
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -52,16 +83,6 @@ class UsuarioController extends Controller
             $randomString .= $characters[rand(0,$charactersLength - 1)];
         }
         // $randomString = 1;
-=======
-        $randomString = 1;
-        // GCODIGO PARA GENERAR ALEATORIAMENTE EL PASSWORD
-        // $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        // $charactersLength = strlen($characters);
-        // $randomString = '';
-        // for ($i=0; $i < 10; $i++) {
-        //     $randomString .= $characters[rand(0,$charactersLength - 1)];
-        // }
->>>>>>> bd615e18ff68c0da3238bd9ac1da1149a6933309
         
         $verificacion = User::where('email',$request->email)->exists();
         
