@@ -25,22 +25,22 @@ class PersonalDestinosController extends Controller
         else
         {
             $personal_destinos = DB::connection('pgsql')->table("personal_destinos")
-            ->join('personals','personal_destinos.per_codigo','=','personals.per_codigo')
+            ->join('vista_personal as vp','personal_destinos.per_codigo','=','vp.per_codigo')
             ->join('nivel1_destinos','personal_destinos.d1_cod','=','nivel1_destinos.id')
             ->join('nivel2_destinos','personal_destinos.d2_cod','=','nivel2_destinos.id')
             ->join('nivel3_destinos','personal_destinos.d3_cod','=','nivel3_destinos.id')
             ->join('nivel4_destinos','personal_destinos.d4_cod','=','nivel4_destinos.id')
             ->join('personal_cargos','personal_destinos.id','=','personal_cargos.dest_cod')
             ->join('cargos','personal_cargos.car_cod','=','cargos.id')
-            ->leftjoin('grados','personal_destinos.gra_cod','=','grados.id')
+            // ->leftjoin('grados','personal_destinos.gra_cod','=','grados.id')
             ->select('personal_destinos.id as idpersonal_destinos',
                     'nivel1_destinos.descripcion as desc_dn1',
                     'nivel2_destinos.descripcion as desc_dn2',
                     'nivel3_destinos.descripcion as desc_dn3',
                     'nivel4_destinos.descripcion as desc_dn4',
-                    'personals.per_nombre',
-                    'personals.per_paterno',
-                    'personals.per_materno',
+                    'vp.nombre',
+                    'vp.paterno',
+                    'vp.materno',
                     'personal_destinos.per_codigo',
                     'personal_destinos.d1_cod',
                     'personal_destinos.d2_cod',
@@ -56,7 +56,7 @@ class PersonalDestinosController extends Controller
                     'personal_destinos.observacion',
                     'cargos.id as idcargo',
                     'cargos.descripcion as cargo',
-                    'grados.abreviatura as gra_abreviatura',
+                    // 'grados.abreviatura as gra_abreviatura',
 
                     DB::raw("(CASE WHEN date_part('DAY',personal_destinos.fecha_destino)=31 and date_part('MONTH',personal_destinos.fecha_destino)=12 
                     THEN cast(date_part('YEAR',personal_destinos.fecha_destino + INTERVAL '1 YEAR') as varchar)
@@ -70,7 +70,7 @@ class PersonalDestinosController extends Controller
             ->paginate(10);
 
             $personal_destinos2 = DB::connection('pgsql')->table("personal_destinos")
-            ->join('personals','personal_destinos.per_codigo','=','personals.per_codigo')
+            ->join('vista_personal as vp','personal_destinos.per_codigo','=','vp.per_codigo')
             ->join('nivel1_destinos','personal_destinos.d1_cod','=','nivel1_destinos.id')
             ->join('nivel2_destinos','personal_destinos.d2_cod','=','nivel2_destinos.id')
             ->join('nivel3_destinos','personal_destinos.d3_cod','=','nivel3_destinos.id')
@@ -82,9 +82,9 @@ class PersonalDestinosController extends Controller
                     'nivel2_destinos.descripcion as desc_dn2',
                     'nivel3_destinos.descripcion as desc_dn3',
                     'nivel4_destinos.descripcion as desc_dn4',
-                    'personals.per_nombre',
-                    'personals.per_paterno',
-                    'personals.per_materno',
+                    'vp.nombre',
+                    'vp.paterno',
+                    'vp.materno',
                     'personal_destinos.per_codigo',
                     'personal_destinos.d1_cod',
                     'personal_destinos.d2_cod',
@@ -108,7 +108,7 @@ class PersonalDestinosController extends Controller
             ->get();
 
             $personal_destinos_frontera = DB::connection('pgsql')->table("personal_destinos")
-            ->join('personals','personal_destinos.per_codigo','=','personals.per_codigo')
+            ->join('vista_personal as vp','personal_destinos.per_codigo','=','vp.per_codigo')
             ->join('nivel1_destinos','personal_destinos.d1_cod','=','nivel1_destinos.id')
             ->join('nivel2_destinos','personal_destinos.d2_cod','=','nivel2_destinos.id')
             ->join('nivel3_destinos','personal_destinos.d3_cod','=','nivel3_destinos.id')

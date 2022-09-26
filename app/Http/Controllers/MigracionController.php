@@ -15,6 +15,7 @@ class MigracionController extends Controller
         $gestion4 = date('Y');
         $gestion2 = date('y');
         $fecha = $gestion4.'-12-31';
+        $fecha_actual = date('Y-n-j');
         $nroDoc = '02/'.$gestion2;
         $doc = 'ORDEN GENERAL DE DESTINOS';
         /**FUNCION PARA TRUNCATE LA TABLA personal_destinos y personal_cargos(foreing_key con tabla personal_destinos) */
@@ -54,8 +55,8 @@ class MigracionController extends Controller
                 'sysuser' => $arrayUltimoDestino[$i]['sysuser'],
                 'flag' => $arrayUltimoDestino[$i]['flag'],
                 'estado' => $arrayUltimoDestino[$i]['estado'],
-                'created_at' => $fecha,
-                'updated_at' => $fecha,
+                'created_at' => $fecha_actual,
+                'updated_at' => $fecha_actual,
             ]);
         }
 
@@ -71,8 +72,8 @@ class MigracionController extends Controller
                 'sysuser' => $arrayUltimoCargo[$j]['sysuser'],
                 'estado' => $arrayUltimoCargo[$j]['estado'],
                 'flag' => $arrayUltimoCargo[$j]['flag'],
-                'created_at' => $fecha,
-                'updated_at' => $fecha,
+                'created_at' => $fecha_actual,
+                'updated_at' => $fecha_actual,
             ]);
         }
         return response()->json(['code' => 200]);

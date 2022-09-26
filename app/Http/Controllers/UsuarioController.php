@@ -102,8 +102,8 @@ class UsuarioController extends Controller
                 $user->assignRole($request->rol);
                 DB::commit();
                 // CODIGO PARA ENVIAR USUARIO Y PASSWORD POR EMAIL
-                // Mail::to($request->email)
-                // ->send(new AccesoUsuarios($request, $randomString));
+                Mail::to($request->email)
+                ->send(new AccesoUsuarios($request, $randomString));
             } catch (\Exception $e) {
                 DB::rollBack();
                 return response()->json(['code' => $verificacion, 'mensaje' => 'Ocurrio un error al momento de registra al usuario.','tipo' => 'error', 'titulo'=>'Error']);
