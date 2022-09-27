@@ -186,40 +186,30 @@ class ReporteDestinosController extends createindex
         //                                             personal_estudios.est_cod");
         //CONSULTAS 2DA PARTE
         $entidad = pg_query($conn,"SELECT 
+                                nd1.id as iddestn1, 
+                                descripcion,
+                                nd1.ogd
+                                from vista_personal as vp
+                                join personal_destinos as pd on vp.per_codigo = pd.per_codigo
+                                join nivel1_destinos as nd1 on nd1.id = pd.d1_cod
+                                where pd.estado = 1
+                                AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
+                                group by nd1.id,
+                                pd.d1_cod,
+                                descripcion,
+                                nd1.ogd
+                                order by pd.d1_cod");
+        $entidad2 = pg_query($conn,"SELECT 
                             nd1.id as iddestn1, 
                             descripcion,
                             nd1.ogd
-                            from personals as p
-                            join personal_destinos as pd on p.per_codigo = pd.per_codigo
+                            from vista_personal as vp
+                            join personal_destinos as pd on vp.per_codigo = pd.per_codigo
                             join nivel1_destinos as nd1 on nd1.id = pd.d1_cod
-                            join personal_situaciones as ps on ps.per_codigo = p.per_codigo
-                            join situaciones as s on s.id = ps.sit_cod
-                            join detalle_situaciones as ds on ds.id = ps.detsit_cod
                             where pd.estado = 1
-                            and s.id = 1
-                            AND (ds.id=1 OR ds.id=2 OR ds.id=4 OR ds.id=5 OR ds.id=8 OR ds.id=9 OR ds.id=11 OR ds.id=13 OR ds.id=14 OR ds.id=16 OR ds.id=17 OR ds.id=29 OR ds.id=30 OR ds.id=31 OR ds.id=32 OR ds.id=33) 
-                            AND ps.estado='1'
-                            AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
-                            group by nd1.id,
-                            pd.d1_cod,
-                            descripcion,
-                            nd1.ogd
-                            order by pd.d1_cod");
-                            $entidad2 = pg_query($conn,"SELECT 
-                            nd1.id as iddestn1, 
-                            descripcion,
-                            nd1.ogd
-                            from personals as p
-                            join personal_destinos as pd on p.per_codigo = pd.per_codigo
-                            join nivel1_destinos as nd1 on nd1.id = pd.d1_cod
-                            join personal_situaciones as ps on ps.per_codigo = p.per_codigo
-                            join situaciones as s on s.id = ps.sit_cod
-                            join detalle_situaciones as ds on ds.id = ps.detsit_cod
-                            where pd.estado = 1
-                            and s.id = 1
-                            AND (ds.id=1 OR ds.id=2 OR ds.id=4 OR ds.id=5 OR ds.id=8 OR ds.id=9 OR ds.id=11 OR ds.id=13 OR ds.id=14 OR ds.id=16 OR ds.id=17 OR ds.id=29 OR ds.id=30 OR ds.id=31 OR ds.id=32 OR ds.id=33) 
-                            AND ps.estado='1'
-                            AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
+                            AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                            AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
                             group by nd1.id,
                             pd.d1_cod,
                             descripcion,
@@ -230,154 +220,124 @@ class ReporteDestinosController extends createindex
                             descripcion,
                             nd2.d1_cod as d1cod,
                             nd2.ogd
-                            from personals as p
-                            join personal_destinos as pd on p.per_codigo = pd.per_codigo
+                            from vista_personal as vp
+                            join personal_destinos as pd on vp.per_codigo = pd.per_codigo
                             join nivel2_destinos as nd2 on nd2.id = pd.d2_cod
-                            join personal_situaciones as ps on ps.per_codigo = p.per_codigo
-                            join situaciones as s on s.id = ps.sit_cod
-                            join detalle_situaciones as ds on ds.id = ps.detsit_cod
                             where pd.estado = 1
-                            and s.id = 1
-                            AND (ds.id=1 OR ds.id=2 OR ds.id=4 OR ds.id=5 OR ds.id=8 OR ds.id=9 OR ds.id=11 OR ds.id=13 OR ds.id=14 OR ds.id=16 OR ds.id=17 OR ds.id=29 OR ds.id=30 OR ds.id=31 OR ds.id=32 OR ds.id=33) 
-                            AND ps.estado='1'
-                            AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
-                            group by nd2.id,
+                            AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                            AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
+                            group by nd2.prioridad,nd2.id,
                             pd.d2_cod,
                             descripcion,
+                            d1cod,
                             nd2.ogd
                             order by nd2.prioridad,nd2.id");
         $reparticion = pg_query($conn,"SELECT 
-                        nd3.id as iddestn3, 
-                        descripcion,
-                        nd3.d2_cod as d2cod,
-                        nd3.ogd
-                        from personals as p
-                        join personal_destinos as pd on p.per_codigo = pd.per_codigo
-                        join nivel3_destinos as nd3 on nd3.id = pd.d3_cod
-                        join personal_situaciones as ps on ps.per_codigo = p.per_codigo
-                        join situaciones as s on s.id = ps.sit_cod
-                        join detalle_situaciones as ds on ds.id = ps.detsit_cod
-                        where pd.estado = 1
-                        and s.id = 1
-                        AND (ds.id=1 OR ds.id=2 OR ds.id=4 OR ds.id=5 OR ds.id=8 OR ds.id=9 OR ds.id=11 OR ds.id=13 OR ds.id=14 OR ds.id=16 OR ds.id=17 OR ds.id=29 OR ds.id=30 OR ds.id=31 OR ds.id=32 OR ds.id=33) 
-                        AND ps.estado='1'
-                        AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
-                        group by nd3.id,
-                        pd.d3_cod,
-                        descripcion,
-                        nd3.ogd
-                        order by nd3.prioridad,nd3.id"); 
+                            nd3.id as iddestn3, 
+                            descripcion,
+                            nd3.d2_cod as d2cod,
+                            nd3.ogd
+                            from vista_personal as vp
+                            join personal_destinos as pd on vp.per_codigo = pd.per_codigo
+                            join nivel3_destinos as nd3 on nd3.id = pd.d3_cod
+                            where pd.estado = 1
+                            AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                       
+                            group by nd3.prioridad,nd3.id,
+                            pd.d3_cod,
+                            descripcion,
+                            d2cod,
+                            nd3.ogd
+                            order by nd3.prioridad,nd3.id"); 
         $subreparticion = pg_query($conn,"SELECT 
-                        nd4.id as iddestn4, 
-                        descripcion,
-                        nd4.d3_cod as d3cod, 
-                        nd4.ogd
-                        from personals as p
-                        join personal_destinos as pd on p.per_codigo = pd.per_codigo
-                        join nivel4_destinos as nd4 on nd4.id = pd.d4_cod
-                        join personal_situaciones as ps on ps.per_codigo = p.per_codigo
-                        join situaciones as s on s.id = ps.sit_cod
-                        join detalle_situaciones as ds on ds.id = ps.detsit_cod
-                        where pd.estado = 1
-                        and s.id = 1
-                        AND (ds.id=1 OR ds.id=2 OR ds.id=4 OR ds.id=5 OR ds.id=8 OR ds.id=9 OR ds.id=11 OR ds.id=13 OR ds.id=14 OR ds.id=16 OR ds.id=17 OR ds.id=29 OR ds.id=30 OR ds.id=31 OR ds.id=32 OR ds.id=33) 
-                        AND ps.estado='1'
-                        AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
-                        group by nd4.id,
-                        pd.d4_cod,
-                        descripcion,
-                        nd4.ogd
-                        order by nd4.orden,nd4.id");
+                            nd4.id as iddestn4, 
+                            descripcion,
+                            nd4.d3_cod as d3cod, 
+                            nd4.ogd
+                            from vista_personal as vp
+                            join personal_destinos as pd on vp.per_codigo = pd.per_codigo
+                            join nivel4_destinos as nd4 on nd4.id = pd.d4_cod
+                            where pd.estado = 1
+                        
+                            AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                        
+                            group by nd4.orden,nd4.id,
+                            pd.d4_cod,
+                            descripcion,
+                            d3cod,
+                            nd4.ogd
+                            order by nd4.orden,nd4.id");
         
         $personalDestinos1 = pg_query($conn,"SELECT  personal_destinos.id as idpersonal_destinos,
                                             personal_destinos.d4_cod,
-                                            REPLACE(grados.abreviatura,'...','.') as grado,
-                                            REPLACE(estudios.abreviatura,'.',' ') as complemento,
-                                            personals.per_nombre,
-                                            personals.per_paterno,
-                                            personals.per_materno,
-                                            personals.per_cm as cm, 
-                                            grados.id as gracod,
-                                            cargos.descripcion
-                                            FROM personals 
-                                            INNER JOIN personal_escalafones ON personals.per_codigo = personal_escalafones.per_codigo 
-                                            INNER JOIN personal_estudios ON personals.per_codigo = personal_estudios.per_codigo 
-                                            INNER JOIN personal_situaciones ON personals.per_codigo = personal_situaciones.per_codigo
-                                            INNER JOIN situaciones ON situaciones.id = personal_situaciones.sit_cod
-                                            INNER JOIN detalle_situaciones ON detalle_situaciones.id = personal_situaciones.detsit_cod
-                                            INNER JOIN personal_destinos ON personals.per_codigo = personal_destinos.per_codigo
-                                            INNER JOIN nivel1_destinos ON personal_destinos.d1_cod = nivel1_destinos.id 
-                                            INNER JOIN nivel2_destinos ON personal_destinos.d2_cod = nivel2_destinos.id 
-                                            INNER JOIN nivel3_destinos ON personal_destinos.d3_cod = nivel3_destinos.id 
-                                            INNER JOIN nivel4_destinos ON personal_destinos.d4_cod = nivel4_destinos.id 
-                                            INNER JOIN grados ON personal_escalafones.gra_cod = grados.id 
-                                            INNER JOIN estudios ON personal_estudios.est_cod = estudios.id
-                                            INNER JOIN personal_cargos on personal_destinos.id = personal_cargos.dest_cod
-                                            INNER JOIN cargos on personal_cargos.car_cod = cargos.id
-                                        WHERE personal_destinos.estado = 1 AND situaciones.id = 1 
-                                        AND (detalle_situaciones.id=1 OR detalle_situaciones.id=2 OR detalle_situaciones.id=4 OR detalle_situaciones.id=5 OR detalle_situaciones.id=8 OR detalle_situaciones.id=9 OR detalle_situaciones.id=11 OR detalle_situaciones.id=13 OR detalle_situaciones.id=14 OR detalle_situaciones.id=16 OR detalle_situaciones.id=17 OR detalle_situaciones.id=29 OR detalle_situaciones.id=30 OR detalle_situaciones.id=31 OR detalle_situaciones.id=32 OR detalle_situaciones.id=33) 
-                                        AND personal_situaciones.estado = 1 
-                                        AND personal_estudios.estado = 1 
-                                        AND personal_escalafones.estado = 1
-                                        AND personal_cargos.nivel_cargo = 1
-                                        AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
-                                        ORDER BY personal_destinos.d1_cod,
-                                            nivel2_destinos.prioridad,
-                                            nivel3_destinos.d2_cod,
-                                            nivel3_destinos.orden,
-                                            nivel4_destinos.d3_cod,
-                                            nivel4_destinos.orden,
-                                            personal_escalafones.esca_cod,
-                                            grados.id,
-                                            personal_destinos.promocion,
-                                            SUBSTRING(per_cm,1,3),
-                                            SUBSTRING(per_cm,4,2),
-                                            SUBSTRING(per_cm,7,2)");
-        $personalDestinos2 = pg_query($conn,"SELECT  personal_destinos.id as idpersonal_destinos,
-                                            personal_destinos.d4_cod,
-                                            REPLACE(grados.abreviatura,'...','.') as grado,
-                                            REPLACE(estudios.abreviatura,'.',' ') as complemento,
-                                            personals.per_nombre,
-                                            personals.per_paterno,
-                                            personals.per_materno,
-                                            personals.per_cm as cm, 
-                                            grados.id as gracod,
+                                            vp.grado,
+                                            vp.estudio as complemento,
+                                            vp.nombre,
+                                            vp.paterno,
+                                            vp.materno,
+                                            vp.cm, 
+                                            vp.idgrado as gracod,
                                             cargos.id as idcargo,
                                             cargos.descripcion
-                                            FROM personals 
-                                            INNER JOIN personal_escalafones ON personals.per_codigo = personal_escalafones.per_codigo 
-                                            INNER JOIN personal_estudios ON personals.per_codigo = personal_estudios.per_codigo 
-                                            INNER JOIN personal_situaciones ON personals.per_codigo = personal_situaciones.per_codigo
-                                            INNER JOIN situaciones ON situaciones.id = personal_situaciones.sit_cod
-                                            INNER JOIN detalle_situaciones ON detalle_situaciones.id = personal_situaciones.detsit_cod
-                                            INNER JOIN personal_destinos ON personals.per_codigo = personal_destinos.per_codigo
+                                            FROM vista_personal as vp 
+                                            INNER JOIN personal_destinos ON vp.per_codigo = personal_destinos.per_codigo
                                             INNER JOIN nivel1_destinos ON personal_destinos.d1_cod = nivel1_destinos.id 
                                             INNER JOIN nivel2_destinos ON personal_destinos.d2_cod = nivel2_destinos.id 
                                             INNER JOIN nivel3_destinos ON personal_destinos.d3_cod = nivel3_destinos.id 
                                             INNER JOIN nivel4_destinos ON personal_destinos.d4_cod = nivel4_destinos.id 
-                                            INNER JOIN grados ON personal_escalafones.gra_cod = grados.id 
-                                            INNER JOIN estudios ON personal_estudios.est_cod = estudios.id
                                             INNER JOIN personal_cargos on personal_destinos.id = personal_cargos.dest_cod
                                             INNER JOIN cargos on personal_cargos.car_cod = cargos.id
-                                        WHERE personal_destinos.estado = 1 AND situaciones.id = 1 
-                                        AND (detalle_situaciones.id=1 OR detalle_situaciones.id=2 OR detalle_situaciones.id=4 OR detalle_situaciones.id=5 OR detalle_situaciones.id=8 OR detalle_situaciones.id=9 OR detalle_situaciones.id=11 OR detalle_situaciones.id=13 OR detalle_situaciones.id=14 OR detalle_situaciones.id=16 OR detalle_situaciones.id=17 OR detalle_situaciones.id=29 OR detalle_situaciones.id=30 OR detalle_situaciones.id=31 OR detalle_situaciones.id=32 OR detalle_situaciones.id=33) 
-                                        AND personal_situaciones.estado = 1 
-                                        AND personal_estudios.estado = 1 
-                                        AND personal_escalafones.estado = 1
-                                        AND personal_cargos.nivel_cargo = 2
-                                        AND (per_cm LIKE '1%' OR per_cm LIKE '3%' OR per_cm LIKE '5%')                      
+                                        WHERE personal_destinos.estado = 1 
+                                        AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                        AND personal_cargos.nivel_cargo = 1
+                                        AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
                                         ORDER BY personal_destinos.d1_cod,
                                             nivel2_destinos.prioridad,
                                             nivel3_destinos.d2_cod,
                                             nivel3_destinos.orden,
                                             nivel4_destinos.d3_cod,
                                             nivel4_destinos.orden,
-                                            personal_escalafones.esca_cod,
-                                            grados.id,
+                                            vp.idescalafon,
+                                            vp.idgrado,
                                             personal_destinos.promocion,
-                                            SUBSTRING(per_cm,1,3),
-                                            SUBSTRING(per_cm,4,2),
-                                            SUBSTRING(per_cm,7,2)");
+                                            SUBSTRING(vp.cm,1,3),
+                                            SUBSTRING(vp.cm,4,2),
+                                            SUBSTRING(vp.cm,7,2)");
+        $personalDestinos2 = pg_query($conn,"SELECT  personal_destinos.id as idpersonal_destinos,
+                                            personal_destinos.d4_cod,
+                                            vp.grado,
+                                            vp.estudio as complemento,
+                                            vp.nombre,
+                                            vp.paterno,
+                                            vp.materno,
+                                            vp.cm, 
+                                            vp.idgrado as gracod,
+                                            cargos.id as idcargo,
+                                            cargos.descripcion
+                                            FROM vista_personal as vp 
+                                            INNER JOIN personal_destinos ON vp.per_codigo = personal_destinos.per_codigo
+                                            INNER JOIN nivel1_destinos ON personal_destinos.d1_cod = nivel1_destinos.id 
+                                            INNER JOIN nivel2_destinos ON personal_destinos.d2_cod = nivel2_destinos.id 
+                                            INNER JOIN nivel3_destinos ON personal_destinos.d3_cod = nivel3_destinos.id 
+                                            INNER JOIN nivel4_destinos ON personal_destinos.d4_cod = nivel4_destinos.id 
+                                            INNER JOIN personal_cargos on personal_destinos.id = personal_cargos.dest_cod
+                                            INNER JOIN cargos on personal_cargos.car_cod = cargos.id
+                                        WHERE personal_destinos.estado = 1 
+                                        AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                        AND personal_cargos.nivel_cargo = 2
+                                        AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
+                                        ORDER BY personal_destinos.d1_cod,
+                                            nivel2_destinos.prioridad,
+                                            nivel3_destinos.d2_cod,
+                                            nivel3_destinos.orden,
+                                            nivel4_destinos.d3_cod,
+                                            nivel4_destinos.orden,
+                                            vp.idescalafon,
+                                            vp.idgrado,
+                                            personal_destinos.promocion,
+                                            SUBSTRING(vp.cm,1,3),
+                                            SUBSTRING(vp.cm,4,2),
+                                            SUBSTRING(vp.cm,7,2)");
         //CONSULTAS 3RA PARTE
         // $diplomas = pg_query($conn,"SELECT desgloce_cursos.descripcion,
         //                                     desgloce_cursos.id as desgid,
@@ -717,26 +677,26 @@ class ReporteDestinosController extends createindex
                                                 $pdf->Ln(0);
                                             }
                                             pg_result_seek($personalDestinos1, 0);
-                                            while($pd1 = pg_fetch_assoc($personalDestinos1)){
-                                                if($pd1['d4_cod'] == $subrep['iddestn4']){
-                                                    $pdf->SetFont('Arial','',9);
-                                                    $pdf->SetX(27,5);
-                                                    $pdf->Cell(100,7,utf8_decode($pd1['grado'].$pd1['complemento'].' '.$pd1['per_nombre'].' '.$pd1['per_paterno'].' '.$pd1['per_materno']),0,0,'L');
-                                                    $pdf->SetX(127,5);
-                                                    $pdf->Cell(40,7,utf8_decode($pd1['descripcion']),0,0,'L');
-                                                    pg_result_seek($personalDestinos2, 0);
-                                                    while($pd2 = pg_fetch_assoc($personalDestinos2)){
-                                                        if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
-                                                            $pdf->SetFont('Arial','',9);
-                                                            $pdf->SetX(170);
-                                                            if($pd2['idcargo'] != '369'){
-                                                            $pdf->Cell(45,7,utf8_decode($pd2['descripcion']),0,0,'L');
-                                                            }
-                                                        }
-                                                    }
-                                                    $pdf->Ln(); 
-                                                }
-                                            }
+                                             while($pd1 = pg_fetch_assoc($personalDestinos1)){
+                                                 if($pd1['d4_cod'] == $subrep['iddestn4']){
+                                                     $pdf->SetFont('Arial','',9);
+                                                     $pdf->SetX(27,5);
+                                                     $pdf->Cell(100,7,utf8_decode($pd1['grado'].$pd1['complemento'].' '.$pd1['nombre'].' '.$pd1['paterno'].' '.$pd1['materno']),0,0,'L');
+                                                     $pdf->SetX(127,5);
+                                                     $pdf->Cell(40,7,utf8_decode($pd1['descripcion']),0,0,'L');
+                                                     pg_result_seek($personalDestinos2, 0);
+                                                     while($pd2 = pg_fetch_assoc($personalDestinos2)){
+                                                         if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
+                                                             $pdf->SetFont('Arial','',9);
+                                                             $pdf->SetX(170);
+                                                             if($pd2['idcargo'] != '369'){
+                                                             $pdf->Cell(45,7,utf8_decode($pd2['descripcion']),0,0,'L');
+                                                             }
+                                                         }
+                                                     }
+                                                     $pdf->Ln(); 
+                                                 }
+                                             }
                                         }
                                     }
                                 }
