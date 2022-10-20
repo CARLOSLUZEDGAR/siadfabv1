@@ -14,6 +14,8 @@ class ReporteDestinosController extends createindex
 {
     public function createPDF(Request $request)
     {
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '10240M');
         // $conn = pg_pconnect('host=192.168.3.81 port=5432 dbname=sipefab_prod user=postgres password=4$Ku8&_d@B/9in*0w%');
         $conn = pg_pconnect('host=127.0.0.1 port=5433 dbname=asigDestinosdb user=postgres password=lu12ed29');
 
