@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2">
-                                <img v-bind:src="'../img/personal/'+arrayDatosPersonal.per_foto" class="rounded float-left img-fluid" width="150" height="150"><br/>
+                                <img v-bind:src="'https://sipefab.fab.bo/img/personal/'+arrayDatosPersonal.per_foto" class="rounded float-left img-fluid" width="100%" height="100%"><br/>
                                 <!-- <dl>
                                     <dt class="st">CARNET DE IDENTIDAD</dt>
                                     <dd class="st">{{arrayDatosPersonal.per_ci}} {{arrayDatosPersonal.per_expedido}}</dd>

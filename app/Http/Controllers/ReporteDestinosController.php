@@ -8,16 +8,18 @@ use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\Fpdf;
 //use App\Pdf;
 use App\Http\Controllers\createindex;
+use App\Http\Controllers\mc_table;
 
 
-class ReporteDestinosController extends createindex
+
+class ReporteDestinosController extends mc_table
 {
     public function createPDF(Request $request)
     {
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '10240M');
-        // $conn = pg_pconnect('host=192.168.3.81 port=5432 dbname=sipefab_prod user=postgres password=4$Ku8&_d@B/9in*0w%');
-        $conn = pg_pconnect('host=127.0.0.1 port=5433 dbname=asigDestinosdb user=postgres password=lu12ed29');
+        // $conn = pg_pconnect('host=127.0.0.1 port=5433 dbname=asigDestinosdb user=postgres password=');
+        $conn = pg_pconnect('host=127.0.0.1 port=5432 dbname=asigDestinosdb user=postgres password=A5ig_D3st1n05*');
 
         $gestion_actual = date("Y");
         // $gestion_actual = 2008;
@@ -202,21 +204,21 @@ class ReporteDestinosController extends createindex
                                 descripcion,
                                 nd1.ogd
                                 order by pd.d1_cod");
-        $entidad2 = pg_query($conn,"SELECT 
-                            nd1.id as iddestn1, 
-                            descripcion,
-                            nd1.ogd
-                            from vista_personal as vp
-                            join personal_destinos as pd on vp.per_codigo = pd.per_codigo
-                            join nivel1_destinos as nd1 on nd1.id = pd.d1_cod
-                            where pd.estado = 1
-                            AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
-                            AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
-                            group by nd1.id,
-                            pd.d1_cod,
-                            descripcion,
-                            nd1.ogd
-                            order by pd.d1_cod");
+        // $entidad2 = pg_query($conn,"SELECT 
+        //                     nd1.id as iddestn1, 
+        //                     descripcion,
+        //                     nd1.ogd
+        //                     from vista_personal as vp
+        //                     join personal_destinos as pd on vp.per_codigo = pd.per_codigo
+        //                     join nivel1_destinos as nd1 on nd1.id = pd.d1_cod
+        //                     where pd.estado = 1
+        //                     AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+        //                     AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
+        //                     group by nd1.id,
+        //                     pd.d1_cod,
+        //                     descripcion,
+        //                     nd1.ogd
+        //                     order by pd.d1_cod");
         $gran_unidad = pg_query($conn,"SELECT 
                             nd2.id as iddestn2, 
                             descripcion,
@@ -678,27 +680,56 @@ class ReporteDestinosController extends createindex
                                             }else{
                                                 $pdf->Ln(0);
                                             }
+                                            // pg_result_seek($personalDestinos1, 0);
+                                            //  while($pd1 = pg_fetch_assoc($personalDestinos1)){
+                                            //      if($pd1['d4_cod'] == $subrep['iddestn4']){
+                                            //          $pdf->SetFont('Arial','',9);
+                                            //          $pdf->SetX(27,5);
+                                            //          $pdf->Cell(100,7,utf8_decode($pd1['grado'].$pd1['complemento'].' '.$pd1['nombre'].' '.$pd1['paterno'].' '.$pd1['materno']),0,0,'L');
+                                            //          $pdf->SetX(127,5);
+                                            //          $pdf->Cell(40,7,utf8_decode($pd1['descripcion']),0,0,'L');
+                                            //          pg_result_seek($personalDestinos2, 0);
+                                            //          while($pd2 = pg_fetch_assoc($personalDestinos2)){
+                                            //              if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
+                                            //                  $pdf->SetFont('Arial','',9);
+                                            //                  $pdf->SetX(170);
+                                            //                  if($pd2['idcargo'] != '369'){
+                                            //                  $pdf->Cell(45,7,utf8_decode($pd2['descripcion']),0,0,'L');
+                                            //                  }
+                                            //              }
+                                            //          }
+                                            //          $pdf->Ln(); 
+                                            //      }
+                                            //  }
+
+                                            $pdf->SetFont('Arial','',9);
+                                            $pdf->SetWidths(Array(100,43,43));
+                                            $pdf->SetAligns(Array('L','L'));
+                                            $pdf->SetLineHeight(7); 
                                             pg_result_seek($personalDestinos1, 0);
-                                             while($pd1 = pg_fetch_assoc($personalDestinos1)){
-                                                 if($pd1['d4_cod'] == $subrep['iddestn4']){
-                                                     $pdf->SetFont('Arial','',9);
-                                                     $pdf->SetX(27,5);
-                                                     $pdf->Cell(100,7,utf8_decode($pd1['grado'].$pd1['complemento'].' '.$pd1['nombre'].' '.$pd1['paterno'].' '.$pd1['materno']),0,0,'L');
-                                                     $pdf->SetX(127,5);
-                                                     $pdf->Cell(40,7,utf8_decode($pd1['descripcion']),0,0,'L');
-                                                     pg_result_seek($personalDestinos2, 0);
-                                                     while($pd2 = pg_fetch_assoc($personalDestinos2)){
-                                                         if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
-                                                             $pdf->SetFont('Arial','',9);
-                                                             $pdf->SetX(170);
-                                                             if($pd2['idcargo'] != '369'){
-                                                             $pdf->Cell(45,7,utf8_decode($pd2['descripcion']),0,0,'L');
-                                                             }
-                                                         }
-                                                     }
-                                                     $pdf->Ln(); 
-                                                 }
-                                             }
+                                            while($pd1 = pg_fetch_assoc($personalDestinos1)){
+                                                if($pd1['d4_cod'] == $subrep['iddestn4']){
+                                                    pg_result_seek($personalDestinos2, 0);
+                                                    while($pd2 = pg_fetch_assoc($personalDestinos2)){
+                                                        if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
+                                                            $pdf->SetFont('Arial','',9);
+                                                            $pdf->SetX(165);
+                                                            if($pd2['idcargo'] != '369'){
+                                                            // $pdf->Cell(36,7,utf8_decode($pd2['descripcion']),0,0,'L');
+                                                                $sdo_cargo = utf8_decode($pd2['descripcion']);
+                                                            }else{
+                                                                $sdo_cargo = utf8_decode('');
+                                                            }
+
+                                                        }
+                                                    }
+                                                    $pdf->Row(Array(  
+                                                        utf8_decode($pd1['grado'].$pd1['complemento'].' '.$pd1['nombre'].' '.$pd1['paterno'].' '.$pd1['materno']),
+                                                        utf8_decode($pd1['descripcion']),
+                                                        utf8_decode($sdo_cargo) 
+                                                    ));
+                                                }
+                                            }
                                         }
                                     }
                                 }

@@ -108,10 +108,10 @@ class createindex extends bookmark
             $this->SetFont('Arial','B',10);
             $this->SetX(20);
             if ($p == 1){ 
-                $this->Cell(176,7,utf8_decode('PRIMERA PARTE'),0,2,'C');
-                $this->SetFont('Arial','BU',10);
-                $this->SetX(20);
-                $this->Cell(176,7,utf8_decode('DE LA SITUACIÓN MILITAR'),0,2,'C');
+                // $this->Cell(176,7,utf8_decode('PRIMERA PARTE'),0,2,'C');
+                // $this->SetFont('Arial','BU',10);
+                // $this->SetX(20);
+                // $this->Cell(176,7,utf8_decode('DE LA SITUACIÓN MILITAR'),0,2,'C');
             }
             elseif ($p == 2){
                 $this->Cell(176,7,utf8_decode('SEGUNDA PARTE'),0,2,'C');
@@ -120,16 +120,16 @@ class createindex extends bookmark
                 $this->Cell(176,7,utf8_decode('DE LOS DESTINOS'),0,2,'C');
             }
             elseif ($p == 3){
-                $this->Cell(176,7,utf8_decode('TERCERA PARTE'),0,2,'C');
-                $this->SetFont('Arial','BU',10);
-                $this->SetX(20);
-                $this->Cell(176,7,utf8_decode('DE LOS TITULOS Y DIPLOMAS'),0,2,'C');
+                // $this->Cell(176,7,utf8_decode('TERCERA PARTE'),0,2,'C');
+                // $this->SetFont('Arial','BU',10);
+                // $this->SetX(20);
+                // $this->Cell(176,7,utf8_decode('DE LOS TITULOS Y DIPLOMAS'),0,2,'C');
             }
             elseif ($p == 4){
-                $this->Cell(176,7,utf8_decode('CUARTA PARTE'),0,2,'C');
-                $this->SetFont('Arial','BU',10);
-                $this->SetX(20);
-                $this->Cell(176,7,utf8_decode('DISPOSICIONES COMPLEMENTARIAS'),0,2,'C');
+                // $this->Cell(176,7,utf8_decode('CUARTA PARTE'),0,2,'C');
+                // $this->SetFont('Arial','BU',10);
+                // $this->SetX(20);
+                // $this->Cell(176,7,utf8_decode('DISPOSICIONES COMPLEMENTARIAS'),0,2,'C');
             }
             elseif ($p == 5){
                 $this->SetFont('Arial','BU',10);
