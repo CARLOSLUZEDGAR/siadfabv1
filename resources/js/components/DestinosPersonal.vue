@@ -1268,7 +1268,9 @@ export default {
             // window.open('http://192.168.3.77/ordenDestinos');
             // window.open('http://127.0.0.1/ordenDestinos');
             // window.open('http://sipefab.fab.bo/ordenDestinos?cmdtefab='+cmdteFAB+'&cmdteffaa='+cmdteFFAA+'&mindef='+minDEF+'&presidente='+presidente);
-            window.open('http://127.0.0.1:8000/ordenDestinos');
+            // window.open('http://127.0.0.1:8000/ordenDestinos');
+            window.open('http://destinos23.fab.bo//ordenDestinos');
+
             // }
             // else{
             //     this.$v.$touch();
