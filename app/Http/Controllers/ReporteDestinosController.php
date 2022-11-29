@@ -19,7 +19,7 @@ class ReporteDestinosController extends mc_table
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '10240M');
         // $conn = pg_pconnect('host=127.0.0.1 port=5433 dbname=asigDestinosdb user=postgres password=');
-        $conn = pg_pconnect('host=127.0.0.1 port=5432 dbname=asigDestinosdb user=postgres password=A5ig_D3st1n05*');
+        $conn = pg_pconnect('host=192.168.4.200 port=5432 dbname=siadfab_prod user=postgres password=A5ig_D3st1n05*');
 
         $gestion_actual = date("Y");
         // $gestion_actual = 2008;
@@ -292,7 +292,7 @@ class ReporteDestinosController extends mc_table
                                             INNER JOIN personal_cargos on personal_destinos.id = personal_cargos.dest_cod
                                             INNER JOIN cargos on personal_cargos.car_cod = cargos.id
                                         WHERE personal_destinos.estado = 1 
-                                        AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                        AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
                                         AND personal_cargos.nivel_cargo = 1
                                         AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
                                         ORDER BY personal_destinos.d1_cod,
@@ -327,7 +327,7 @@ class ReporteDestinosController extends mc_table
                                             INNER JOIN personal_cargos on personal_destinos.id = personal_cargos.dest_cod
                                             INNER JOIN cargos on personal_cargos.car_cod = cargos.id
                                         WHERE personal_destinos.estado = 1 
-                                        AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=14 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
+                                        AND (vp.iddetallesituacion=1 OR vp.iddetallesituacion=2 OR vp.iddetallesituacion=4 OR vp.iddetallesituacion=5 OR vp.iddetallesituacion=8 OR vp.iddetallesituacion=9 OR vp.iddetallesituacion=11 OR vp.iddetallesituacion=13 OR vp.iddetallesituacion=16 OR vp.iddetallesituacion=17 OR vp.iddetallesituacion=29 OR vp.iddetallesituacion=30 OR vp.iddetallesituacion=31 OR vp.iddetallesituacion=32 OR vp.iddetallesituacion=33) 
                                         AND personal_cargos.nivel_cargo = 2
                                         AND (vp.cm LIKE '1%' OR vp.cm LIKE '3%' OR vp.cm LIKE '5%')                      
                                         ORDER BY personal_destinos.d1_cod,
