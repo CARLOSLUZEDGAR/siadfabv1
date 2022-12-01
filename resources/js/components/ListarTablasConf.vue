@@ -176,51 +176,54 @@ export default {
               //NOMBRE ENVIA AL CONTROLADOR : me.NOMBRE V-MODEL O VARIBLE DECLARADA
                   // idPersonalDestino : me.idPersonalDestino,
                   // per_codigo : me.per_codigo,
-              })
-              .then(function (response) {
-                  //Respuesta de la peticion
-                  console.log(response);
-                  // me.listarPersonalDestinos(me.per_codigo);
-                  if (response.data.code == 100) {
-                      swal.fire(
-                          "Completa", //TITULO
-                          "Se AUMENTO correctamente los datos y se elimino datos dobles", //TEXTO DE MENSAJE
-                          "success" // TIPO DE MODAL (success, warnning, error, info)
-                      );
-                      if (response.data.code == 200) {
-                      swal.fire(
-                          "Completa", //TITULO
-                          "Se AUMENTO correctamente los datos y no se encontro datos dobles", //TEXTO DE MENSAJE
-                          "success" // TIPO DE MODAL (success, warnning, error, info)
-                      );
-                      }
-                      if (response.data.code == 300) {
+                  })
+                  .then(function (response) {
+                      //Respuesta de la peticion
+                      console.log(response);
+                      // me.listarPersonalDestinos(me.per_codigo);
+                      switch (response.data.code) {
+                        case 100:
+                          swal.fire(
+                              "Completa", //TITULO
+                              "Se AUMENTO correctamente los datos y se elimino datos dobles", //TEXTO DE MENSAJE
+                              "success" // TIPO DE MODAL (success, warnning, error, info)
+                          );
+                          break;
+                        case 200:
+                          swal.fire(
+                              "Completa", //TITULO
+                              "Se AUMENTO correctamente los datos y no se encontro datos dobles", //TEXTO DE MENSAJE
+                              "success" // TIPO DE MODAL (success, warnning, error, info)
+                          );
+                        break;
+                        case 300:
                           swal.fire(
                               "Completa", //TITULO
                               "No se encontro datos para aumentar, pero se elimino datos dobles", //TEXTO DE MENSAJE
                               "success" // TIPO DE MODAL (success, warnning, error, info)
                           );
-                      }
-                      if (response.data.code == 400) {
+                        break;
+                        case 400:
                           swal.fire(
                               "Completa", //TITULO
                               "No se encontro datos para aumentar, tampoco se encontro datos dobles", //TEXTO DE MENSAJE
                               "success" // TIPO DE MODAL (success, warnning, error, info)
                           );
+                        break;
+                      
+                        default:
+                          swal.fire(
+                              "Error", //TITULO
+                              "Ocurrio un error al Aumentar datos.", //TEXTO DE MENSAJE
+                              "error" // TIPO DE MODAL (success, warnning, error, info)
+                          );
+                        break;
                       }
-                  }
-                   else {
-                      swal.fire(
-                          "Error", //TITULO
-                          "Ocurrio un error al Aumentar datos.", //TEXTO DE MENSAJE
-                          "error" // TIPO DE MODAL (success, warnning, error, info)
-                      );
-                  }
-              })
-              .catch(function (error) {
-                  // handle error
-                  console.log(error);
-                  });
+                  })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                    });
               }else{
                   console.log('no empezamos');
               }
