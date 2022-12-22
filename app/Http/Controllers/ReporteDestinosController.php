@@ -18,7 +18,7 @@ class ReporteDestinosController extends mc_table
     {
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '10240M');
-        // $conn = pg_pconnect('host=127.0.0.1 port=5433 dbname=asigDestinosdb user=postgres password=');
+        // $conn = pg_pconnect('host=127.0.0.1 port=5433 dbname=asigDestinosdb user=postgres password=lu12ed29');
         $conn = pg_pconnect('host=192.168.4.200 port=5432 dbname=siadfab_prod user=postgres password=A5ig_D3st1n05*');
 
         $gestion_actual = date("Y");
@@ -703,30 +703,30 @@ class ReporteDestinosController extends mc_table
                                             //  }
 
                                             $pdf->SetFont('Arial','',9);
-                                            $pdf->SetWidths(Array(100,43,43));
+                                            $pdf->SetWidths(Array(100,100));
+                                            // $pdf->SetWidths(Array(100,43,43));
                                             $pdf->SetAligns(Array('L','L'));
+                                            // $pdf->SetAligns(Array('L','L','L'));
                                             $pdf->SetLineHeight(7); 
                                             pg_result_seek($personalDestinos1, 0);
                                             while($pd1 = pg_fetch_assoc($personalDestinos1)){
                                                 if($pd1['d4_cod'] == $subrep['iddestn4']){
-                                                    pg_result_seek($personalDestinos2, 0);
-                                                    while($pd2 = pg_fetch_assoc($personalDestinos2)){
-                                                        if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
-                                                            $pdf->SetFont('Arial','',9);
-                                                            $pdf->SetX(165);
-                                                            if($pd2['idcargo'] != '369'){
-                                                            // $pdf->Cell(36,7,utf8_decode($pd2['descripcion']),0,0,'L');
-                                                                $sdo_cargo = utf8_decode($pd2['descripcion']);
-                                                            }else{
-                                                                $sdo_cargo = utf8_decode('');
-                                                            }
-
-                                                        }
-                                                    }
+                                                    // pg_result_seek($personalDestinos2, 0);
+                                                    // while($pd2 = pg_fetch_assoc($personalDestinos2)){
+                                                    //     if($pd2['idpersonal_destinos'] == $pd1['idpersonal_destinos']){
+                                                    //         $pdf->SetFont('Arial','',9);
+                                                    //         $pdf->SetX(165);
+                                                    //         if($pd2['idcargo'] != '369'){
+                                                    //             $sdo_cargo = utf8_decode($pd2['descripcion']);
+                                                    //         }else{
+                                                    //             $sdo_cargo = utf8_decode('');
+                                                    //         }
+                                                    //     }
+                                                    // }
                                                     $pdf->Row(Array(  
                                                         utf8_decode($pd1['grado'].$pd1['complemento'].' '.$pd1['nombre'].' '.$pd1['paterno'].' '.$pd1['materno']),
                                                         utf8_decode($pd1['descripcion']),
-                                                        utf8_decode($sdo_cargo) 
+                                                        // utf8_decode($sdo_cargo) 
                                                     ));
                                                 }
                                             }
